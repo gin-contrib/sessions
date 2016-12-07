@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"gopkg.in/gin-gonic/gin.v1"
 	"github.com/gorilla/context"
 	"github.com/gorilla/sessions"
+	"gopkg.in/gin-gonic/gin.v1"
 )
 
 const (
