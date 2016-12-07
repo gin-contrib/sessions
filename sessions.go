@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	DefaultKey  = "github.com/gin-gonic/contrib/sessions"
+	DefaultKey  = "github.com/gin-contrib/sessions"
 	errorFormat = "[sessions] ERROR! %s\n"
 )
 
