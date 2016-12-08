@@ -6,7 +6,7 @@
 [![GoDoc](https://godoc.org/github.com/gin-contrib/sessions?status.svg)](https://godoc.org/github.com/gin-contrib/sessions)
 [![Join the chat at https://gitter.im/gin-gonic/gin](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gin-gonic/gin)
 
-Gin middleware for session management with multi-backend support (currently cookie, Redis). 
+Gin middleware for session management with multi-backend support (currently cookie, Redis).
 
 ## Examples
 
@@ -16,8 +16,8 @@ Gin middleware for session management with multi-backend support (currently cook
 package main
 
 import (
-  "github.com/gin-gonic/contrib/sessions"
-  "github.com/gin-gonic/gin"
+  "github.com/gin-contrib/sessions"
+  "gopkg.in/gin-gonic/gin.v1"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func main() {
   r.Use(sessions.Sessions("mysession", store))
 
   r.GET("/incr", func(c *gin.Context) {
-    session := sessions.Default(c)  
+    session := sessions.Default(c)
     var count int
     v := session.Get("count")
     if v == nil {
@@ -49,8 +49,8 @@ func main() {
 package main
 
 import (
-  "github.com/gin-gonic/contrib/sessions"
-  "github.com/gin-gonic/gin"
+  "github.com/gin-contrib/sessions"
+  "gopkg.in/gin-gonic/gin.v1"
 )
 
 func main() {
