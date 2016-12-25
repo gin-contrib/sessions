@@ -36,6 +36,7 @@ type Options struct {
 // Session stores the values and optional configuration for a session.
 type Session interface {
 	// Get returns the session value associated to the given key.
+	// If no key is set; false is returned
 	Get(key interface{}) interface{}
 	// Set sets the session value associated to the given key.
 	Set(key interface{}, val interface{})
