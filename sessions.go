@@ -76,7 +76,13 @@ type session struct {
 }
 
 func (s *session) Get(key interface{}) interface{} {
-	return s.Session().Values[key]
+	v := s.Session().Values[key]
+
+	if v == nil {
+		return false
+	}
+
+	return v
 }
 
 func (s *session) Set(key interface{}, val interface{}) {
@@ -145,3 +151,4 @@ func (s *session) Written() bool {
 func Default(c *gin.Context) Session {
 	return c.MustGet(DefaultKey).(Session)
 }
+
