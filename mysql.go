@@ -11,10 +11,10 @@ type MySQLStore interface {
 
 // endpoint: MySQL DSN, "username:password@protocol(address)/dbname?parseTime=true"
 // table: Table where sessions are to be saved. Created automatically.
-// Key are defined in pairs to allow key rotation, but the common case is to set a single
+// Keys are defined in pairs to allow key rotation, but the common case is to set a single
 // authentication key and optionally an encryption key.
 //
-// By default, cookie max age is set to 0, and path is set to root "/".
+// By default, session (read: cookie) MaxAge is set to 0, Path is set to root "/".
 // This can be changed, however:
 //
 //     session.Options(Options{
