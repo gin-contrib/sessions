@@ -196,6 +196,9 @@ func sessionOptions(t *testing.T, newStore storeFactory) {
 	r.GET("/path", func(c *gin.Context) {
 		session := Default(c)
 		session.Set("key", ok)
+		session.Options(Options{
+			Domain: "localhost",
+		})
 		session.Save()
 		c.String(200, ok)
 	})

@@ -23,6 +23,11 @@ type MySQLStore interface {
 //         Path:   "/foo/bar",
 //     })
 //
+// NB! Currently, only path and max age are incapsulated from store options.
+//     This has been addressed here: https://github.com/srinathgs/mysqlstore/issues/11
+//     Because of this, if Domain, Secure, HttpOnly are required, they need to be set
+//     manually for a new session.
+//
 // The first key in a pair is used for authentication and the second for encryption. The
 // encryption key can be set to nil or omitted in the last pair, but the authentication key
 // is required in all pairs.
