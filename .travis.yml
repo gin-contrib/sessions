@@ -11,6 +11,7 @@ services:
   - redis
 
 install:
+  - go get github.com/campoy/embedmd
 
 script:
   - go test -v -covermode=atomic -coverprofile=coverage.out
