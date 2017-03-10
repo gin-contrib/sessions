@@ -10,6 +10,8 @@ go:
 services:
   - redis
 
+install:
+
 script:
   - go test -v -covermode=atomic -coverprofile=coverage.out
 
