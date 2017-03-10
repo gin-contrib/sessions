@@ -17,7 +17,7 @@ package main
 
 import (
   "github.com/gin-contrib/sessions"
-  "gopkg.in/gin-gonic/gin.v1"
+  "github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -50,7 +50,7 @@ package main
 
 import (
   "github.com/gin-contrib/sessions"
-  "gopkg.in/gin-gonic/gin.v1"
+  "github.com/gin-gonic/gin"
 )
 
 func main() {
