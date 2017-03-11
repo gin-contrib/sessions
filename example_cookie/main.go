@@ -18,7 +18,7 @@ func main() {
 			count = 0
 		} else {
 			count = v.(int)
-			count += 1
+			count++
 		}
 		session.Set("count", count)
 		session.Save()
