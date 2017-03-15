@@ -11,7 +11,9 @@ services:
   - redis
 
 install:
+  - go get -u github.com/kardianos/govendor
   - go get github.com/campoy/embedmd
+  - govendor sync
 
 script:
   - embedmd -d *.md
