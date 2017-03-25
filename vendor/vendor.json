@@ -9,6 +9,18 @@
 			"revisionTime": "2017-02-28T02:32:00Z"
 		},
 		{
+			"checksumSHA1": "fvVoeETRxg13N2GlxydO+5slZdM=",
+			"path": "github.com/bradfitz/gomemcache/memcache",
+			"revision": "1952afaa557dc08e8e0d89eafab110fb501c1a2b",
+			"revisionTime": "2017-02-08T21:30:04Z"
+		},
+		{
+			"checksumSHA1": "WlfTuG4fsAp6FOQh1IBTzqWY+18=",
+			"path": "github.com/bradleypeabody/gorilla-sessions-memcache",
+			"revision": "88ee8d4815fec038f22ce295cffa0165820fc2b8",
+			"revisionTime": "2014-05-17T18:26:47Z"
+		},
+		{
 			"checksumSHA1": "2UmMbNHc8FBr98mJFN1k8ISOIHk=",
 			"path": "github.com/garyburd/redigo/internal",
 			"revision": "0d253a66e6e1349f4581d6d2b300ee434ee2da9f",
