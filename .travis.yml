@@ -9,6 +9,7 @@ go:
 
 services:
   - redis
+  - memcached
 
 install:
   - go get -u github.com/kardianos/govendor
