@@ -78,7 +78,7 @@ func main() {
 }
 ```
 
-#### Redis
+#### Memcache
 
 [embedmd]:# (example_memcached/main.go go)
 ```go
