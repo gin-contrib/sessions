@@ -2,7 +2,7 @@ package sessions
 
 import (
 	"github.com/gorilla/sessions"
-	"gopkg.in/go-playground/mongostore.v4"
+	"github.com/kidstuff/mongostore"
 	mgo "gopkg.in/mgo.v2"
 )
 
@@ -10,8 +10,8 @@ type MongoStore interface {
 	Store
 }
 
-func NewMongoStore(s *mgo.Session, collectionName string, options *sessions.Options, ensureTTL bool, keyPairs ...[]byte) MongoStore {
-	store := mongostore.New(s, collectionName, options, ensureTTL, keyPairs...)
+func NewMongoStore(c *mgo.Collection, maxAge int, ensureTTL bool, keyPairs ...[]byte) MongoStore {
+	store := mongostore.NewMongoStore(c, maxAge, ensureTTL, keyPairs...)
 
 	return &mongoStore{store}
 }

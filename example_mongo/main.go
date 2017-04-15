@@ -13,7 +13,8 @@ func main() {
 		// handle err
 	}
 
-	store := sessions.NewMongoStore(session, "sessions", nil, true, []byte("secret"))
+	c := session.DB("").C("sessions")
+	store := sessions.NewMongoStore(c, 3600, true, []byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {

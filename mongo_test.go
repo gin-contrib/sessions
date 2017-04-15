@@ -14,7 +14,8 @@ var newMongoStore = func(_ *testing.T) Store {
 		panic(err)
 	}
 
-	return NewMongoStore(session, "sessions", nil, true, []byte("secret"))
+	c := session.DB("test").C("sessions")
+	return NewMongoStore(c, 3600, true, []byte("secret"))
 }
 
 func TestMongo_SessionGetSet(t *testing.T) {

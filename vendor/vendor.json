@@ -75,6 +75,12 @@
 			"revisionTime": "2017-03-07T00:35:30Z"
 		},
 		{
+			"checksumSHA1": "MKyEkCX61KaYI8EWK0obIM2yeN8=",
+			"path": "github.com/kidstuff/mongostore",
+			"revision": "256d65ac5b0e35e7c5ebb3f175c0bed1e5c2b253",
+			"revisionTime": "2015-10-02T15:23:36Z"
+		},
+		{
 			"checksumSHA1": "b0T0Hzd+zYk+OCDTFMps+jwa/nY=",
 			"path": "github.com/manucorporat/sse",
 			"revision": "ee05b128a739a0fb76c7ebd3ae4810c1de808d6d",
@@ -97,12 +103,6 @@
 			"path": "golang.org/x/sys/unix",
 			"revision": "99f16d856c9836c42d24e7ab64ea72916925fa97",
 			"revisionTime": "2017-03-08T15:04:45Z"
-		},
-		{
-			"checksumSHA1": "hunk48rt882LClHwif/PPC/3YIA=",
-			"path": "gopkg.in/go-playground/mongostore.v4",
-			"revision": "910b5f307e31225d19c9ac1d33d881768c27ad30",
-			"revisionTime": "2015-09-24T11:07:10Z"
 		},
 		{
 			"checksumSHA1": "39V1idWER42Lmcmg2Uy40wMzOlo=",
