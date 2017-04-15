@@ -99,10 +99,22 @@
 			"revisionTime": "2017-03-08T15:04:45Z"
 		},
 		{
+			"checksumSHA1": "hunk48rt882LClHwif/PPC/3YIA=",
+			"path": "gopkg.in/go-playground/mongostore.v4",
+			"revision": "910b5f307e31225d19c9ac1d33d881768c27ad30",
+			"revisionTime": "2015-09-24T11:07:10Z"
+		},
+		{
 			"checksumSHA1": "39V1idWER42Lmcmg2Uy40wMzOlo=",
 			"path": "gopkg.in/go-playground/validator.v8",
 			"revision": "5f57d2222ad794d0dffb07e664ea05e2ee07d60c",
 			"revisionTime": "2016-07-18T13:41:25Z"
+		},
+		{
+			"checksumSHA1": "1D8GzeoFGUs5FZOoyC2DpQg8c5Y=",
+			"path": "gopkg.in/mgo.v2",
+			"revision": "3f83fa5005286a7fe593b055f0d7771a7dce4655",
+			"revisionTime": "2016-08-18T02:01:20Z"
 		},
 		{
 			"checksumSHA1": "0KwOlQV1dNUh9X8t+5s7nX5bqfk=",
