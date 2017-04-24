@@ -36,6 +36,7 @@ type Options struct {
 // Session stores the values and optional configuration for a session.
 type Session interface {
 	// Get returns the session value associated to the given key.
+	// If no key is set; false is returned
 	Get(key interface{}) interface{}
 	// Set sets the session value associated to the given key.
 	Set(key interface{}, val interface{})
@@ -76,7 +77,13 @@ type session struct {
 }
 
 func (s *session) Get(key interface{}) interface{} {
-	return s.Session().Values[key]
+	v := s.Session().Values[key]
+
+	if v == nil {
+		return false
+	}
+
+	return v
 }
 
 func (s *session) Set(key interface{}, val interface{}) {
@@ -145,3 +152,4 @@ func (s *session) Written() bool {
 func Default(c *gin.Context) Session {
 	return c.MustGet(DefaultKey).(Session)
 }
+
