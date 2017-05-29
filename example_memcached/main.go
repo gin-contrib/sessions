@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/bradfitz/gomemcache/memcache"
 	"github.com/gin-contrib/sessions"
-	"github.com/gin-gonic/gin"
+	"gopkg.in/gin-gonic/gin.v1"
 )
 
 func main() {
