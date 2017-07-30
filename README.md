@@ -6,7 +6,23 @@
 [![GoDoc](https://godoc.org/github.com/gin-contrib/sessions?status.svg)](https://godoc.org/github.com/gin-contrib/sessions)
 [![Join the chat at https://gitter.im/gin-gonic/gin](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gin-gonic/gin)
 
-Gin middleware for session management with multi-backend support (currently cookie, Redis).
+Gin middleware for session management with multi-backend support (currently cookie, Redis, Memcached, MongoDB).
+
+## Usage
+
+### Start using it
+
+Download and install it:
+
+```bash
+$ go get github.com/gin-contrib/sessions
+```
+
+Import it in your code:
+
+```go
+import "github.com/gin-contrib/sessions"
+```
 
 ## Examples
 
@@ -78,7 +94,7 @@ func main() {
 }
 ```
 
-#### Memcache
+#### Memcached
 
 [embedmd]:# (example_memcached/main.go go)
 ```go
@@ -114,7 +130,7 @@ func main() {
 ```
 
 
-#### Mongodb
+#### MongoDB
 
 [embedmd]:# (example_mongo/main.go go)
 ```go
