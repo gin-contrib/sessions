@@ -8,6 +8,7 @@ import (
 func main() {
 	r := gin.Default()
 	store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte("secret"))
+  store.Options(sessions.Options)
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {
