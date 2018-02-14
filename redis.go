@@ -1,6 +1,7 @@
 package sessions
 
 import (
+	"errors"
 	"github.com/boj/redistore"
 	"github.com/garyburd/redigo/redis"
 	"github.com/gorilla/sessions"
@@ -66,4 +67,17 @@ func (c *redisStore) Options(options Options) {
 		Secure:   options.Secure,
 		HttpOnly: options.HttpOnly,
 	}
+}
+
+// SetRedisPrefix sets the redis database key prefix.
+//
+// Ref: https://godoc.org/github.com/boj/redistore#RediStore.SetKeyPrefix
+func SetRedisPrefix(store RedisStore, prefix string) error {
+	realStore, ok := store.(*redisStore)
+	if !ok {
+		return errors.New("unable to set redis prefix: RedisStore isn't redisStore")
+	}
+
+	realStore.RediStore.SetKeyPrefix(prefix)
+	return nil
 }
