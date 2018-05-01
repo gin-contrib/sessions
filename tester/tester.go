@@ -1,4 +1,7 @@
-package sessions
+// Package tester is a package to test each packages of session stores, such as
+// cookie, redis, memcached, mongo.  You can use this to test your own session
+// stores.
+package tester
 
 import (
 	"net/http"
@@ -6,28 +9,33 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
-type storeFactory func(*testing.T) Store
+type storeFactory func(*testing.T) sessions.Store
 
 const sessionName = "mysession"
 
 const ok = "ok"
 
-func sessionGetSet(t *testing.T, newStore storeFactory) {
+func init() {
+	gin.SetMode(gin.TestMode)
+}
+
+func GetSet(t *testing.T, newStore storeFactory) {
 	r := gin.Default()
-	r.Use(Sessions(sessionName, newStore(t)))
+	r.Use(sessions.Sessions(sessionName, newStore(t)))
 
 	r.GET("/set", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		session.Set("key", ok)
 		session.Save()
 		c.String(200, ok)
 	})
 
 	r.GET("/get", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		if session.Get("key") != ok {
 			t.Error("Session writing failed")
 		}
@@ -45,26 +53,26 @@ func sessionGetSet(t *testing.T, newStore storeFactory) {
 	r.ServeHTTP(res2, req2)
 }
 
-func sessionDeleteKey(t *testing.T, newStore storeFactory) {
+func DeleteKey(t *testing.T, newStore storeFactory) {
 	r := gin.Default()
-	r.Use(Sessions(sessionName, newStore(t)))
+	r.Use(sessions.Sessions(sessionName, newStore(t)))
 
 	r.GET("/set", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		session.Set("key", ok)
 		session.Save()
 		c.String(200, ok)
 	})
 
 	r.GET("/delete", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		session.Delete("key")
 		session.Save()
 		c.String(200, ok)
 	})
 
 	r.GET("/get", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		if session.Get("key") != nil {
 			t.Error("Session deleting failed")
 		}
@@ -87,23 +95,23 @@ func sessionDeleteKey(t *testing.T, newStore storeFactory) {
 	r.ServeHTTP(res3, req3)
 }
 
-func sessionFlashes(t *testing.T, newStore storeFactory) {
+func Flashes(t *testing.T, newStore storeFactory) {
 	r := gin.Default()
 	store := newStore(t)
-	store.Options(Options{
+	store.Options(sessions.Options{
 		Domain: "localhost",
 	})
-	r.Use(Sessions(sessionName, store))
+	r.Use(sessions.Sessions(sessionName, store))
 
 	r.GET("/set", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		session.AddFlash(ok)
 		session.Save()
 		c.String(200, ok)
 	})
 
 	r.GET("/flash", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		l := len(session.Flashes())
 		if l != 1 {
 			t.Error("Flashes count does not equal 1. Equals ", l)
@@ -113,7 +121,7 @@ func sessionFlashes(t *testing.T, newStore storeFactory) {
 	})
 
 	r.GET("/check", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		l := len(session.Flashes())
 		if l != 0 {
 			t.Error("flashes count is not 0 after reading. Equals ", l)
@@ -137,17 +145,17 @@ func sessionFlashes(t *testing.T, newStore storeFactory) {
 	r.ServeHTTP(res3, req3)
 }
 
-func sessionClear(t *testing.T, newStore storeFactory) {
+func Clear(t *testing.T, newStore storeFactory) {
 	data := map[string]string{
 		"key": "val",
 		"foo": "bar",
 	}
 	r := gin.Default()
 	store := newStore(t)
-	r.Use(Sessions(sessionName, store))
+	r.Use(sessions.Sessions(sessionName, store))
 
 	r.GET("/set", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		for k, v := range data {
 			session.Set(k, v)
 		}
@@ -157,7 +165,7 @@ func sessionClear(t *testing.T, newStore storeFactory) {
 	})
 
 	r.GET("/check", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		for k, v := range data {
 			if session.Get(k) == v {
 				t.Fatal("Session clear failed")
@@ -177,25 +185,25 @@ func sessionClear(t *testing.T, newStore storeFactory) {
 	r.ServeHTTP(res2, req2)
 }
 
-func sessionOptions(t *testing.T, newStore storeFactory) {
+func Options(t *testing.T, newStore storeFactory) {
 	r := gin.Default()
 	store := newStore(t)
-	store.Options(Options{
+	store.Options(sessions.Options{
 		Domain: "localhost",
 	})
-	r.Use(Sessions(sessionName, store))
+	r.Use(sessions.Sessions(sessionName, store))
 
 	r.GET("/domain", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		session.Set("key", ok)
-		session.Options(Options{
+		session.Options(sessions.Options{
 			Path: "/foo/bar/bat",
 		})
 		session.Save()
 		c.String(200, ok)
 	})
 	r.GET("/path", func(c *gin.Context) {
-		session := Default(c)
+		session := sessions.Default(c)
 		session.Set("key", ok)
 		session.Save()
 		c.String(200, ok)
