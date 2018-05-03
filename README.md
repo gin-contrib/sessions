@@ -34,12 +34,13 @@ package main
 
 import (
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
-	store := sessions.NewCookieStore([]byte("secret"))
+	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {
@@ -68,12 +69,13 @@ package main
 
 import (
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
-	store, _ := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte("secret"))
+	store, _ := redis.NewStore(10, "tcp", "localhost:6379", "", []byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {
@@ -103,12 +105,13 @@ package main
 import (
 	"github.com/bradfitz/gomemcache/memcache"
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/memcached"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
-	store := sessions.NewMemcacheStore(memcache.New("localhost:11211"), "", []byte("secret"))
+	store := memcached.NewStore(memcache.New("localhost:11211"), "", []byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {
@@ -138,6 +141,7 @@ package main
 
 import (
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/mongo"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/mgo.v2"
 )
@@ -150,7 +154,7 @@ func main() {
 	}
 
 	c := session.DB("").C("sessions")
-	store := sessions.NewMongoStore(c, 3600, true, []byte("secret"))
+	store := mongo.NewStore(c, 3600, true, []byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {
