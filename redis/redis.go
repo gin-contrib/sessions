@@ -1,13 +1,14 @@
-package sessions
+package redis
 
 import (
 	"github.com/boj/redistore"
+	"github.com/gin-contrib/sessions"
 	"github.com/garyburd/redigo/redis"
-	"github.com/gorilla/sessions"
+	gsessions "github.com/gorilla/sessions"
 )
 
-type RedisStore interface {
-	Store
+type Store interface {
+	sessions.Store
 }
 
 // size: maximum number of idle connections.
@@ -23,43 +24,43 @@ type RedisStore interface {
 //
 // It is recommended to use an authentication key with 32 or 64 bytes. The encryption key,
 // if set, must be either 16, 24, or 32 bytes to select AES-128, AES-192, or AES-256 modes.
-func NewRedisStore(size int, network, address, password string, keyPairs ...[]byte) (RedisStore, error) {
-	store, err := redistore.NewRediStore(size, network, address, password, keyPairs...)
+func NewStore(size int, network, address, password string, keyPairs ...[]byte) (Store, error) {
+	s, err := redistore.NewRediStore(size, network, address, password, keyPairs...)
 	if err != nil {
 		return nil, err
 	}
-	return &redisStore{store}, nil
+	return &store{s}, nil
 }
 
-// NewRedisStoreWithDB - like NewRedisStore but accepts `DB` parameter to select
+// NewStoreWithDB - like NewStore but accepts `DB` parameter to select
 // redis DB instead of using the default one ("0")
 //
 // Ref: https://godoc.org/github.com/boj/redistore#NewRediStoreWithDB
-func NewRedisStoreWithDB(size int, network, address, password, DB string, keyPairs ...[]byte) (RedisStore, error) {
-	store, err := redistore.NewRediStoreWithDB(size, network, address, password, DB, keyPairs...)
+func NewStoreWithDB(size int, network, address, password, DB string, keyPairs ...[]byte) (Store, error) {
+	s, err := redistore.NewRediStoreWithDB(size, network, address, password, DB, keyPairs...)
 	if err != nil {
 		return nil, err
 	}
-	return &redisStore{store}, nil
+	return &store{s}, nil
 }
 
-// NewRedisStoreWithPool instantiates a RediStore with a *redis.Pool passed in.
+// NewStoreWithPool instantiates a RediStore with a *redis.Pool passed in.
 //
 // Ref: https://godoc.org/github.com/boj/redistore#NewRediStoreWithPool
-func NewRedisStoreWithPool(pool *redis.Pool, keyPairs ...[]byte) (RedisStore, error) {
-	store, err := redistore.NewRediStoreWithPool(pool, keyPairs...)
+func NewStoreWithPool(pool *redis.Pool, keyPairs ...[]byte) (Store, error) {
+	s, err := redistore.NewRediStoreWithPool(pool, keyPairs...)
 	if err != nil {
 		return nil, err
 	}
-	return &redisStore{store}, nil
+	return &store{s}, nil
 }
 
-type redisStore struct {
+type store struct {
 	*redistore.RediStore
 }
 
-func (c *redisStore) Options(options Options) {
-	c.RediStore.Options = &sessions.Options{
+func (c *store) Options(options sessions.Options) {
+	c.RediStore.Options = &gsessions.Options{
 		Path:     options.Path,
 		Domain:   options.Domain,
 		MaxAge:   options.MaxAge,

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/mongo"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/mgo.v2"
 )
@@ -14,7 +15,7 @@ func main() {
 	}
 
 	c := session.DB("").C("sessions")
-	store := sessions.NewMongoStore(c, 3600, true, []byte("secret"))
+	store := mongo.NewStore(c, 3600, true, []byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {

@@ -3,12 +3,13 @@ package main
 import (
 	"github.com/bradfitz/gomemcache/memcache"
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/memcached"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
-	store := sessions.NewMemcacheStore(memcache.New("localhost:11211"), "", []byte("secret"))
+	store := memcached.NewStore(memcache.New("localhost:11211"), "", []byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {
