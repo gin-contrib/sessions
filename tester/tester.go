@@ -1,5 +1,5 @@
 // Package tester is a package to test each packages of session stores, such as
-// cookie, redis, memcached, mongo.  You can use this to test your own session
+// cookie, redis, memcached, mongo, memstore.  You can use this to test your own session
 // stores.
 package tester
 

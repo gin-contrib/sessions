@@ -28,7 +28,8 @@ import "github.com/gin-contrib/sessions"
 
 #### cookie-based
 
-[embedmd]:# (example_cookie/main.go go)
+[embedmd]: # "example_cookie/main.go go"
+
 ```go
 package main
 
@@ -63,7 +64,8 @@ func main() {
 
 #### Redis
 
-[embedmd]:# (example_redis/main.go go)
+[embedmd]: # "example_redis/main.go go"
+
 ```go
 package main
 
@@ -98,7 +100,8 @@ func main() {
 
 #### Memcached
 
-[embedmd]:# (example_memcached/main.go go)
+[embedmd]: # "example_memcached/main.go go"
+
 ```go
 package main
 
@@ -132,10 +135,10 @@ func main() {
 }
 ```
 
-
 #### MongoDB
 
-[embedmd]:# (example_mongo/main.go go)
+[embedmd]: # "example_mongo/main.go go"
+
 ```go
 package main
 
@@ -155,6 +158,42 @@ func main() {
 
 	c := session.DB("").C("sessions")
 	store := mongo.NewStore(c, 3600, true, []byte("secret"))
+	r.Use(sessions.Sessions("mysession", store))
+
+	r.GET("/incr", func(c *gin.Context) {
+		session := sessions.Default(c)
+		var count int
+		v := session.Get("count")
+		if v == nil {
+			count = 0
+		} else {
+			count = v.(int)
+			count++
+		}
+		session.Set("count", count)
+		session.Save()
+		c.JSON(200, gin.H{"count": count})
+	})
+	r.Run(":8000")
+}
+```
+
+#### memstore
+
+[embedmd]: # "example_memstore/main.go go"
+
+```go
+package main
+
+import (
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/memstore"
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	r := gin.Default()
+	store := memstore.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {
