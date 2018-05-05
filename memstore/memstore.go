@@ -1,4 +1,4 @@
-package cookie
+package memstore
 
 import (
 	"github.com/gin-contrib/sessions"
