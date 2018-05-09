@@ -105,6 +105,12 @@
 			"revisionTime": "2017-03-22T23:44:13Z"
 		},
 		{
+			"checksumSHA1": "es9bLVW1IM2tufFBnbCKBsve4+E=",
+			"path": "github.com/quasoft/memstore",
+			"revision": "72cbde23778087efc0d9af366d6f08ceacbf4705",
+			"revisionTime": "2018-02-10T20:03:49Z"
+		},
+		{
 			"checksumSHA1": "9Zw986fuQM/hCoVd8vmHoSM+8sU=",
 			"path": "github.com/ugorji/go/codec",
 			"revision": "5efa3251c7f7d05e5d9704a69a984ec9f1386a40",
