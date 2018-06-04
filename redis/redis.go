@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"errors"
 	"github.com/boj/redistore"
 	"github.com/gin-contrib/sessions"
 	"github.com/garyburd/redigo/redis"
@@ -60,8 +61,13 @@ type store struct {
 }
 
 // SetKeyPrefix sets the key prefix in the redis database.
-func (c *store) SetKeyPrefix(prefix string) {
-	c.SetKeyPrefix(prefix)
+func SetKeyPrefix(s Store, prefix string) error {
+	if rediStore, ok := s.(*store); !ok {
+		return errors.New("invalid store supplied")
+	} else {
+		rediStore.SetKeyPrefix(prefix)
+	}
+	return nil
 }
 
 func (c *store) Options(options sessions.Options) {
