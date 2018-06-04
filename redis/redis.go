@@ -60,10 +60,20 @@ type store struct {
 	*redistore.RediStore
 }
 
+// GetRedisStore exposes the *redistore.RediStore
+func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
+	if newStore, ok := s.(*redistore.RediStore); !ok {
+		err = errors.New("invalid store supplied")
+	} else {
+		rediStore = newStore
+	}
+	return
+}
+
 // SetKeyPrefix sets the key prefix in the redis database.
 func SetKeyPrefix(s Store, prefix string) error {
-	if rediStore, ok := s.(*store); !ok {
-		return errors.New("invalid store supplied")
+	if err, rediStore := GetRedisStore(s); err != nil {
+		return err
 	} else {
 		rediStore.SetKeyPrefix(prefix)
 	}
