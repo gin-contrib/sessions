@@ -60,13 +60,16 @@ type store struct {
 	*redistore.RediStore
 }
 
-// GetRedisStore exposes the *redistore.RediStore
+// GetRedisStore get the actual woking stiore.
+//
+// Ref: https://godoc.org/github.com/boj/redistore#RediStore
 func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
-	if newStore, ok := s.(*redistore.RediStore); !ok {
-		err = errors.New("invalid store supplied")
+	if realStore, ok := s.(*store); !ok {
+		err = errors.New("unable to get the redis store: Store isn't *store")
 	} else {
-		rediStore = newStore
+		rediStore = realStore.RediStore
 	}
+
 	return
 }
 
