@@ -59,11 +59,6 @@ type store struct {
 	*redistore.RediStore
 }
 
-// SetKeyPrefix sets the key prefix in the redis database.
-func (c *store) SetKeyPrefix(prefix string) {
-	c.SetKeyPrefix(prefix)
-}
-
 func (c *store) Options(options sessions.Options) {
 	c.RediStore.Options = &gsessions.Options{
 		Path:     options.Path,
