@@ -64,22 +64,23 @@ type store struct {
 //
 // Ref: https://godoc.org/github.com/boj/redistore#RediStore
 func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
-	if realStore, ok := s.(*store); !ok {
+	realStore, ok := s.(*store)
+	if !ok {
 		err = errors.New("unable to get the redis store: Store isn't *store")
-	} else {
-		rediStore = realStore.RediStore
 	}
 
+	rediStore = realStore.RediStore
 	return
 }
 
 // SetKeyPrefix sets the key prefix in the redis database.
 func SetKeyPrefix(s Store, prefix string) error {
-	if err, rediStore := GetRedisStore(s); err != nil {
+	err, rediStore := GetRedisStore(s)
+	if err != nil {
 		return err
-	} else {
-		rediStore.SetKeyPrefix(prefix)
 	}
+
+	rediStore.SetKeyPrefix(prefix)
 	return nil
 }
 
