@@ -28,7 +28,7 @@ import "github.com/gin-contrib/sessions"
 
 #### cookie-based
 
-[embedmd]:# (example_cookie/main.go go)
+[embedmd]:# (example/cookie/main.go go)
 ```go
 package main
 
@@ -63,7 +63,7 @@ func main() {
 
 #### Redis
 
-[embedmd]:# (example_redis/main.go go)
+[embedmd]:# (example/redis/main.go go)
 ```go
 package main
 
@@ -98,7 +98,7 @@ func main() {
 
 #### Memcached
 
-[embedmd]:# (example_memcached/main.go go)
+[embedmd]:# (example/memcached/main.go go)
 ```go
 package main
 
@@ -134,7 +134,7 @@ func main() {
 
 #### MongoDB
 
-[embedmd]:# (example_mongo/main.go go)
+[embedmd]:# (example/mongo/main.go go)
 ```go
 package main
 
@@ -176,7 +176,7 @@ func main() {
 
 #### memstore
 
-[embedmd]:# (example_memstore/main.go go)
+[embedmd]:# (example/memstore/main.go go)
 ```go
 package main
 
