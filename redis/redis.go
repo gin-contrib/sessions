@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"errors"
 	"github.com/boj/redistore"
 	"github.com/gin-contrib/sessions"
 	"github.com/garyburd/redigo/redis"
@@ -57,6 +58,30 @@ func NewStoreWithPool(pool *redis.Pool, keyPairs ...[]byte) (Store, error) {
 
 type store struct {
 	*redistore.RediStore
+}
+
+// GetRedisStore get the actual woking stiore.
+//
+// Ref: https://godoc.org/github.com/boj/redistore#RediStore
+func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
+	realStore, ok := s.(*store)
+	if !ok {
+		err = errors.New("unable to get the redis store: Store isn't *store")
+	}
+
+	rediStore = realStore.RediStore
+	return
+}
+
+// SetKeyPrefix sets the key prefix in the redis database.
+func SetKeyPrefix(s Store, prefix string) error {
+	err, rediStore := GetRedisStore(s)
+	if err != nil {
+		return err
+	}
+
+	rediStore.SetKeyPrefix(prefix)
+	return nil
 }
 
 func (c *store) Options(options sessions.Options) {
