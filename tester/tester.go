@@ -17,6 +17,7 @@ type storeFactory func(*testing.T) sessions.Store
 
 const sessionName = "mysession"
 
+const key = "key"
 const ok = "ok"
 
 func init() {
@@ -29,18 +30,26 @@ func GetSet(t *testing.T, newStore storeFactory) {
 
 	r.GET("/set", func(c *gin.Context) {
 		session := sessions.Default(c)
-		session.Set("key", ok)
-		session.Save()
-		c.String(200, ok)
+		if err := session.Set(key, ok); err != nil {
+			t.Error(err)
+		}
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/get", func(c *gin.Context) {
 		session := sessions.Default(c)
-		if session.Get("key") != ok {
+		if val, err := session.Get(key); err != nil {
+			t.Error(err)
+		} else if val != ok {
 			t.Error("Session writing failed")
 		}
-		session.Save()
-		c.String(200, ok)
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	res1 := httptest.NewRecorder()
@@ -59,25 +68,37 @@ func DeleteKey(t *testing.T, newStore storeFactory) {
 
 	r.GET("/set", func(c *gin.Context) {
 		session := sessions.Default(c)
-		session.Set("key", ok)
-		session.Save()
-		c.String(200, ok)
+		if err := session.Set(key, ok); err != nil {
+			t.Error(err)
+		}
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/delete", func(c *gin.Context) {
 		session := sessions.Default(c)
-		session.Delete("key")
-		session.Save()
-		c.String(200, ok)
+		if err := session.Delete(key); err != nil {
+			t.Error(err)
+		}
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/get", func(c *gin.Context) {
 		session := sessions.Default(c)
-		if session.Get("key") != nil {
+		if val, err := session.Get(key); err != nil {
+			t.Error(err)
+		} else if val != nil {
 			t.Error("Session deleting failed")
 		}
-		session.Save()
-		c.String(200, ok)
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	res1 := httptest.NewRecorder()
@@ -105,29 +126,47 @@ func Flashes(t *testing.T, newStore storeFactory) {
 
 	r.GET("/set", func(c *gin.Context) {
 		session := sessions.Default(c)
-		session.AddFlash(ok)
-		session.Save()
-		c.String(200, ok)
+		if err := session.AddFlash(ok); err != nil {
+			t.Error(err)
+		}
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/flash", func(c *gin.Context) {
 		session := sessions.Default(c)
-		l := len(session.Flashes())
+		var l int
+		if xs, err := session.Flashes(); err != nil {
+			t.Error(err)
+		} else {
+			l = len(xs)
+		}
 		if l != 1 {
 			t.Error("Flashes count does not equal 1. Equals ", l)
 		}
-		session.Save()
-		c.String(200, ok)
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/check", func(c *gin.Context) {
 		session := sessions.Default(c)
-		l := len(session.Flashes())
+		var l int
+		if xs, err := session.Flashes(); err != nil {
+			t.Error(err)
+		} else {
+			l = len(xs)
+		}
 		if l != 0 {
 			t.Error("flashes count is not 0 after reading. Equals ", l)
 		}
-		session.Save()
-		c.String(200, ok)
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	res1 := httptest.NewRecorder()
@@ -157,22 +196,32 @@ func Clear(t *testing.T, newStore storeFactory) {
 	r.GET("/set", func(c *gin.Context) {
 		session := sessions.Default(c)
 		for k, v := range data {
-			session.Set(k, v)
+			if err := session.Set(k, v); err != nil {
+				t.Error(err)
+			}
 		}
-		session.Clear()
-		session.Save()
-		c.String(200, ok)
+		if err := session.Clear(); err != nil {
+			t.Error(err)
+		}
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/check", func(c *gin.Context) {
 		session := sessions.Default(c)
 		for k, v := range data {
-			if session.Get(k) == v {
+			if val, err := session.Get(k); err != nil {
+				t.Error(err)
+			} else if val == v {
 				t.Fatal("Session clear failed")
 			}
 		}
-		session.Save()
-		c.String(200, ok)
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 
 	res1 := httptest.NewRecorder()
@@ -195,18 +244,28 @@ func Options(t *testing.T, newStore storeFactory) {
 
 	r.GET("/domain", func(c *gin.Context) {
 		session := sessions.Default(c)
-		session.Set("key", ok)
-		session.Options(sessions.Options{
+		if err := session.Set(key, ok); err != nil {
+			t.Error(err)
+		}
+		if err := session.Options(sessions.Options{
 			Path: "/foo/bar/bat",
-		})
-		session.Save()
-		c.String(200, ok)
+		}); err != nil {
+			t.Error(err)
+		}
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 	r.GET("/path", func(c *gin.Context) {
 		session := sessions.Default(c)
-		session.Set("key", ok)
-		session.Save()
-		c.String(200, ok)
+		if err := session.Set(key, ok); err != nil {
+			t.Error(err)
+		}
+		if err := session.Save(); err != nil {
+			t.Error(err)
+		}
+		c.String(http.StatusOK, ok)
 	})
 	res1 := httptest.NewRecorder()
 	req1, _ := http.NewRequest("GET", "/domain", nil)
