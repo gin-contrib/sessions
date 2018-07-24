@@ -2,9 +2,10 @@ package redis
 
 import (
 	"errors"
+
 	"github.com/boj/redistore"
 	"github.com/gin-contrib/sessions"
-	"github.com/garyburd/redigo/redis"
+	"github.com/gomodule/redigo/redis"
 	gsessions "github.com/gorilla/sessions"
 )
 
