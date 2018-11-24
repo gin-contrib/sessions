@@ -61,7 +61,7 @@ type store struct {
 	*redistore.RediStore
 }
 
-// GetRedisStore get the actual woking stiore.
+// GetRedisStore get the actual woking store.
 //
 // Ref: https://godoc.org/github.com/boj/redistore#RediStore
 func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
