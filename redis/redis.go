@@ -5,7 +5,8 @@ import (
 
 	"github.com/boj/redistore"
 	"github.com/gin-contrib/sessions"
-	"github.com/gomodule/redigo/redis"
+	//"github.com/gomodule/redigo/redis"
+	"github.com/garyburd/redigo/redis"
 	gsessions "github.com/gorilla/sessions"
 )
 
