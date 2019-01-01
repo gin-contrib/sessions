@@ -24,6 +24,9 @@ matrix:
 before_install:
   - go get github.com/campoy/embedmd
 
+install:
+  - go get -t -v .
+
 script:
   - embedmd -d *.md
   - go test -v -covermode=atomic -coverprofile=coverage.out
