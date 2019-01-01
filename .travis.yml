@@ -21,8 +21,7 @@ matrix:
   - go: 1.11.x
     env: GO111MODULE=on
 
-install:
-  - go get -d -t -v ./...
+before_install:
   - go get github.com/campoy/embedmd
 
 script:
