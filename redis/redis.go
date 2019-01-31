@@ -92,5 +92,6 @@ func (c *store) Options(options sessions.Options) {
 		MaxAge:   options.MaxAge,
 		Secure:   options.Secure,
 		HttpOnly: options.HttpOnly,
+		SameSite: options.SameSite,
 	}
 }

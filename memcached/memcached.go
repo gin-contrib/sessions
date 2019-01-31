@@ -2,7 +2,7 @@ package memcached
 
 import (
 	"github.com/bradfitz/gomemcache/memcache"
-	"github.com/bradleypeabody/gorilla-sessions-memcache"
+	gsm "github.com/bradleypeabody/gorilla-sessions-memcache"
 	"github.com/gin-contrib/sessions"
 	gsessions "github.com/gorilla/sessions"
 )
@@ -39,5 +39,6 @@ func (c *store) Options(options sessions.Options) {
 		MaxAge:   options.MaxAge,
 		Secure:   options.Secure,
 		HttpOnly: options.HttpOnly,
+		SameSite: options.SameSite,
 	}
 }
