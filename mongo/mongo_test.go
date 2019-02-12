@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/tester"
-	mgo "gopkg.in/mgo.v2"
+	"github.com/globalsign/mgo"
 )
 
 const mongoTestServer = "localhost:27017"
