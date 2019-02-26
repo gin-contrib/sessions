@@ -6,7 +6,7 @@
 [![GoDoc](https://godoc.org/github.com/gin-contrib/sessions?status.svg)](https://godoc.org/github.com/gin-contrib/sessions)
 [![Join the chat at https://gitter.im/gin-gonic/gin](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gin-gonic/gin)
 
-Gin middleware for session management with multi-backend support (currently cookie, Redis, Memcached, MongoDB, memstore).
+Gin middleware for session management with multi-backend support (currently cookie, Redis, Memcached, MongoDB, memstore, Postgresql).
 
 ## Usage
 
