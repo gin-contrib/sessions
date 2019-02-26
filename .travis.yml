@@ -19,6 +19,8 @@ matrix:
   include:
   - go: 1.11.x
     env: GO111MODULE=on
+  - go: 1.12.x
+    env: GO111MODULE=on
 
 before_install:
   - go get github.com/campoy/embedmd
