@@ -46,7 +46,7 @@ func main() {
 	r.GET("/incr", func(c *gin.Context) {
 		session := sessions.Default(c)
 		var count int
-		v := session.Get("count")
+		v, _ := session.Get("count")
 		if v == nil {
 			count = 0
 		} else {
@@ -81,7 +81,7 @@ func main() {
 	r.GET("/incr", func(c *gin.Context) {
 		session := sessions.Default(c)
 		var count int
-		v := session.Get("count")
+		v, _ := session.Get("count")
 		if v == nil {
 			count = 0
 		} else {
@@ -117,7 +117,7 @@ func main() {
 	r.GET("/incr", func(c *gin.Context) {
 		session := sessions.Default(c)
 		var count int
-		v := session.Get("count")
+		v, _ := session.Get("count")
 		if v == nil {
 			count = 0
 		} else {
@@ -154,7 +154,7 @@ func main() {
 	r.GET("/incr", func(c *gin.Context) {
 		session := sessions.Default(c)
 		var count int
-		v := session.Get("count")
+		v, _ := session.Get("count")
 		if v == nil {
 			count = 0
 		} else {
@@ -196,7 +196,7 @@ func main() {
 	r.GET("/incr", func(c *gin.Context) {
 		session := sessions.Default(c)
 		var count int
-		v := session.Get("count")
+		v, _ := session.Get("count")
 		if v == nil {
 			count = 0
 		} else {
@@ -231,7 +231,7 @@ func main() {
 	r.GET("/incr", func(c *gin.Context) {
 		session := sessions.Default(c)
 		var count int
-		v := session.Get("count")
+		v, _ := session.Get("count")
 		if v == nil {
 			count = 0
 		} else {

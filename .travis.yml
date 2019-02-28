@@ -2,9 +2,6 @@ language: go
 sudo: false
 
 go:
-  - 1.8.x
-  - 1.9.x
-  - 1.10.x
   - 1.11.x
   - 1.12.x
   - master
@@ -28,6 +25,7 @@ before_install:
 
 install:
   - go get -t -v .
+  - go get -t -v ./{cookie,memcached,memstore,mongo,postgres,redis}
 
 before_script:
   - psql -c "create database test;" -U postgres
@@ -35,7 +33,7 @@ before_script:
 
 script:
   - embedmd -d *.md
-  - go test -v -covermode=atomic -coverprofile=coverage.out
+  - go test -v -covermode=atomic -coverprofile=coverage.out ./{cookie,memcached,memstore,mongo,postgres}
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
