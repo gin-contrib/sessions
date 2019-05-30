@@ -66,6 +66,18 @@ func Sessions(name string, store Store) gin.HandlerFunc {
 	}
 }
 
+func SessionsMany(names []string, store Store) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		sessions := make(map[string]session, len(names))
+		for _, name := range names {
+			sessions[name] = session{name, c.Request, store, nil, false, c.Writer}
+		}
+		c.Set(DefaultKey, sessions)
+		defer context.Clear(c.Request)
+		c.Next()
+	}
+}
+
 type session struct {
 	name    string
 	request *http.Request
@@ -144,4 +156,9 @@ func (s *session) Written() bool {
 // shortcut to get session
 func Default(c *gin.Context) Session {
 	return c.MustGet(DefaultKey).(Session)
+}
+
+// shortcut to get session with given name
+func DefaultMany(c *gin.Context, name string) Session {
+	return c.MustGet(DefaultKey).(map[string]Session)[name]
 }
