@@ -212,9 +212,7 @@ func main() {
 }
 ```
 
-#### Binary protocol
-
-(with optional SASL authentication))
+#### Binary protocol (with optional SASL authentication)
 
 [embedmd]:# (example/memcached/binary.go go)
 ```go
