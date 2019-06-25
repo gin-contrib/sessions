@@ -68,9 +68,9 @@ func Sessions(name string, store Store) gin.HandlerFunc {
 
 func SessionsMany(names []string, store Store) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		sessions := make(map[string]session, len(names))
+		sessions := make(map[string]Session, len(names))
 		for _, name := range names {
-			sessions[name] = session{name, c.Request, store, nil, false, c.Writer}
+			sessions[name] = &session{name, c.Request, store, nil, false, c.Writer}
 		}
 		c.Set(DefaultKey, sessions)
 		defer context.Clear(c.Request)
