@@ -2,7 +2,7 @@
 
 ### ASCII protocol
 
-[embedmd]:# (example/memcached/ascii.go go)
+[embedmd]:# (ascii.go go)
 ```go
 package main
 
@@ -38,7 +38,7 @@ func main() {
 
 ### binary protocol (with optional SASL authentication)
 
-[embedmd]:# (example/memcached/binary.go go)
+[embedmd]:# (binary.go go)
 ```go
 package main
 

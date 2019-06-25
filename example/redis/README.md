@@ -1,6 +1,6 @@
 ## Redis
 
-[embedmd]:# (example/redis/main.go go)
+[embedmd]:# (main.go go)
 ```go
 package main
 

@@ -1,6 +1,6 @@
 ## memstore
 
-[embedmd]:# (example/memstore/main.go go)
+[embedmd]:# (main.go go)
 ```go
 package main
 

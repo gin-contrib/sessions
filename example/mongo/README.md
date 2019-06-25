@@ -1,6 +1,6 @@
 ## MongoDB
 
-[embedmd]:# (example/mongo/main.go go)
+[embedmd]:# (main.go go)
 ```go
 package main
 

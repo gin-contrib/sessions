@@ -1,6 +1,6 @@
 ## cookie-based
 
-[embedmd]:# (example/cookie/main.go go)
+[embedmd]:# (main.go go)
 ```go
 package main
 
