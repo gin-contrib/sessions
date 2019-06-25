@@ -98,8 +98,8 @@ func main() {
 
 ### more examples
 
-- #### [cookie-based](example/cookie)
-- #### [Redis](example/redis)
-- #### [memcached](example/memcached)
-- #### [MongoDB](example/mongo)
-- #### [memstore](example/memstore)
+- [cookie-based](example/cookie)
+- [Redis](example/redis)
+- [memcached](example/memcached)
+- [MongoDB](example/mongo)
+- [memstore](example/memstore)
