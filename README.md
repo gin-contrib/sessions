@@ -26,9 +26,8 @@ import "github.com/gin-contrib/sessions"
 
 ## Examples
 
-#### cookie-based
+### basic usage
 
-[embedmd]:# (example/cookie/main.go go)
 ```go
 package main
 
@@ -43,205 +42,64 @@ func main() {
 	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
-	r.GET("/incr", func(c *gin.Context) {
+	r.GET("/hello", func(c *gin.Context) {
 		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
+
+		if session.Get("hello") != "world" {
+			session.Set("hello", "world")
+			session.Save()
 		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
+
+		c.JSON(200, gin.H{"hello": session.Get("hello")})
 	})
 	r.Run(":8000")
 }
 ```
 
-#### Redis
+### multiple sessions
 
-[embedmd]:# (example/redis/main.go go)
 ```go
 package main
 
 import (
 	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/redis"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
-	store, _ := redis.NewStore(10, "tcp", "localhost:6379", "", []byte("secret"))
-	r.Use(sessions.Sessions("mysession", store))
+	store := cookie.NewStore([]byte("secret"))
+	sessionNames := []string{"a", "b"}
+	r.Use(sessions.SessionsMany(sessionNames, store))
 
-	r.GET("/incr", func(c *gin.Context) {
-		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
+	r.GET("/hello", func(c *gin.Context) {
+		sessionA := sessions.DefaultMany(c, "a")
+		sessionB := sessions.DefaultMany(c, "b")
+
+		if sessionA.Get("hello") != "world!" {
+			sessionA.Set("hello", "world!")
+			sessionA.Save()
 		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
+
+		if sessionB.Get("hello") != "world?" {
+			sessionB.Set("hello", "world?")
+			sessionB.Save()
+		}
+
+		c.JSON(200, gin.H{
+			"a": sessionA.Get("hello"),
+			"b": sessionB.Get("hello"),
+		})
 	})
 	r.Run(":8000")
 }
 ```
 
-#### Memcached (ASCII protocol)
+### more examples
 
-[embedmd]:# (example/memcached/ascii.go go)
-```go
-package main
-
-import (
-	"github.com/bradfitz/gomemcache/memcache"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/memcached"
-	"github.com/gin-gonic/gin"
-)
-
-func main() {
-	r := gin.Default()
-	store := memcached.NewStore(memcache.New("localhost:11211"), "", []byte("secret"))
-	r.Use(sessions.Sessions("mysession", store))
-
-	r.GET("/incr", func(c *gin.Context) {
-		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
-		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
-	})
-	r.Run(":8000")
-}
-```
-
-#### Memcached (binary protocol with optional SASL authentication)
-
-[embedmd]:# (example/memcached/binary.go go)
-```go
-package main
-
-import (
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/memcached"
-	"github.com/gin-gonic/gin"
-	"github.com/memcachier/mc"
-)
-
-func main() {
-	r := gin.Default()
-	client := mc.NewMC("localhost:11211", "username", "password")
-	store := memcached.NewMemcacheStore(client, "", []byte("secret"))
-	r.Use(sessions.Sessions("mysession", store))
-
-	r.GET("/incr", func(c *gin.Context) {
-		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
-		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
-	})
-	r.Run(":8000")
-}
-```
-
-#### MongoDB
-
-[embedmd]:# (example/mongo/main.go go)
-```go
-package main
-
-import (
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/mongo"
-	"github.com/gin-gonic/gin"
-	"github.com/globalsign/mgo"
-)
-
-func main() {
-	r := gin.Default()
-	session, err := mgo.Dial("localhost:27017/test")
-	if err != nil {
-		// handle err
-	}
-
-	c := session.DB("").C("sessions")
-	store := mongo.NewStore(c, 3600, true, []byte("secret"))
-	r.Use(sessions.Sessions("mysession", store))
-
-	r.GET("/incr", func(c *gin.Context) {
-		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
-		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
-	})
-	r.Run(":8000")
-}
-```
-
-#### memstore
-
-[embedmd]:# (example/memstore/main.go go)
-```go
-package main
-
-import (
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/memstore"
-	"github.com/gin-gonic/gin"
-)
-
-func main() {
-	r := gin.Default()
-	store := memstore.NewStore([]byte("secret"))
-	r.Use(sessions.Sessions("mysession", store))
-
-	r.GET("/incr", func(c *gin.Context) {
-		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
-		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
-	})
-	r.Run(":8000")
-}
-```
+- ### [cookie-based](example/cookie)
+- ### [Redis](example/redis)
+- ### [memcached](example/memcached)
+- ### [MongoDB](example/mongo)
+- ### [memstore](example/memstore)
