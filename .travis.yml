@@ -1,32 +1,31 @@
 language: go
 sudo: false
 
-go:
-  - 1.8.x
-  - 1.9.x
-  - 1.10.x
-  - 1.11.x
-  - 1.12.x
-  - master
+matrix:
+  fast_finish: true
+  include:
+  - go: 1.10.x
+  - go: 1.11.x
+    env: GO111MODULE=on
+  - go: 1.12.x
+    env: GO111MODULE=on
+  - go: master
+    env: GO111MODULE=on
+
+git:
+  depth: 10
 
 services:
   - redis
   - memcached
   - mongodb
 
-matrix:
-  fast_finish: true
-  include:
-  - go: 1.11.x
-    env: GO111MODULE=on
-  - go: 1.12.x
-    env: GO111MODULE=on
-
 before_install:
   - go get github.com/campoy/embedmd
 
 install:
-  - go get -t -v .
+  - if [[ "${GO111MODULE}" = "on" ]]; then go mod download; else go get -t -v .; fi
+  - if [[ "${GO111MODULE}" = "on" ]]; then export PATH="${GOPATH}/bin:${GOROOT}/bin:${PATH}"; fi
 
 script:
   - embedmd -d *.md
