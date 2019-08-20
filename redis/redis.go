@@ -68,6 +68,7 @@ func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
 	realStore, ok := s.(*store)
 	if !ok {
 		err = errors.New("unable to get the redis store: Store isn't *store")
+		return
 	}
 
 	rediStore = realStore.RediStore
