@@ -35,6 +35,8 @@ type Options struct {
 // Wraps thinly gorilla-session methods.
 // Session stores the values and optional configuration for a session.
 type Session interface {
+	// Get Session ID
+	ID() string
 	// Get returns the session value associated to the given key.
 	Get(key interface{}) interface{}
 	// Set sets the session value associated to the given key.
@@ -55,6 +57,8 @@ type Session interface {
 	Options(Options)
 	// Save saves all sessions used during the current request.
 	Save() error
+	// Destory session
+	Destory() error
 }
 
 func Sessions(name string, store Store) gin.HandlerFunc {
@@ -63,6 +67,8 @@ func Sessions(name string, store Store) gin.HandlerFunc {
 		c.Set(DefaultKey, s)
 		defer context.Clear(c.Request)
 		c.Next()
+		// Save except cookie store
+		s.Save()
 	}
 }
 
@@ -75,6 +81,10 @@ func SessionsMany(names []string, store Store) gin.HandlerFunc {
 		c.Set(DefaultKey, sessions)
 		defer context.Clear(c.Request)
 		c.Next()
+		// Save except cookie store
+		for _, name := range names {
+			sessions[name].Save()
+		}
 	}
 }
 
@@ -85,6 +95,10 @@ type session struct {
 	session *sessions.Session
 	written bool
 	writer  http.ResponseWriter
+}
+
+func (s *session) ID() string {
+	return s.Session().ID
 }
 
 func (s *session) Get(key interface{}) interface{} {
@@ -128,7 +142,7 @@ func (s *session) Options(options Options) {
 }
 
 func (s *session) Save() error {
-	if s.Written() {
+	if s.Written() || s.Session().IsNew {
 		e := s.Session().Save(s.request, s.writer)
 		if e == nil {
 			s.written = false
@@ -138,12 +152,21 @@ func (s *session) Save() error {
 	return nil
 }
 
+func (s *session) Destory() error {
+	s.Options(Options{MaxAge: -1})
+	s.written = true
+	return s.Save()
+}
+
 func (s *session) Session() *sessions.Session {
 	if s.session == nil {
 		var err error
 		s.session, err = s.store.Get(s.request, s.name)
 		if err != nil {
 			log.Printf(errorFormat, err)
+		} else if s.session.IsNew {
+			// Save if session is new before write response
+			s.Save()
 		}
 	}
 	return s.session

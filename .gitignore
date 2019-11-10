@@ -1,3 +1,9 @@
 coverage.out
 vendor/*
 !/vendor/vendor.json
+/.idea/.gitignore
+/.idea/dictionaries/niqingyang.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/sessions.iml
+/.idea/vcs.xml
