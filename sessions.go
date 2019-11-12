@@ -59,6 +59,8 @@ type Session interface {
 	Save() error
 	// Destory session
 	Destory() error
+	// Session is new
+	IsNew() bool
 }
 
 func Sessions(name string, store Store) gin.HandlerFunc {
@@ -156,6 +158,10 @@ func (s *session) Destory() error {
 	s.Options(Options{MaxAge: -1})
 	s.written = true
 	return s.Save()
+}
+
+func (s *session) IsNew() bool {
+	return s.Session().IsNew
 }
 
 func (s *session) Session() *sessions.Session {
