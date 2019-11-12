@@ -1,4 +1,4 @@
-module github.com/gin-contrib/sessions
+module github.com/gokit/sessions
 
 go 1.12
 
@@ -6,7 +6,7 @@ require (
 	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff
 	github.com/bradfitz/gomemcache v0.0.0-20190329173943-551aad21a668
 	github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1
-	github.com/gin-contrib/sse v0.1.0 // indirect
+	github.com/gokit/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
 	github.com/golang/protobuf v1.3.2 // indirect
