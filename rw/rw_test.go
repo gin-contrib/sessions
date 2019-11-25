@@ -10,7 +10,7 @@ import (
 
 const redisTestServer = "localhost:6379"
 
-var newRedisStore = func(_ *testing.T) sessions.Store {
+var newRWStore = func(_ *testing.T) sessions.Store {
 	storeRead, err1 := redis.NewStore(10, "tcp", redisTestServer, "", []byte("secret"))
 	if err1 != nil {
 		panic(err1)
@@ -23,22 +23,22 @@ var newRedisStore = func(_ *testing.T) sessions.Store {
 	return NewStore(storeRead, storeWrite)
 }
 
-func TestRedis_SessionGetSet(t *testing.T) {
-	tester.GetSet(t, newRedisStore)
+func TestRW_SessionGetSet(t *testing.T) {
+	tester.GetSet(t, newRWStore)
 }
 
-func TestRedis_SessionDeleteKey(t *testing.T) {
-	tester.DeleteKey(t, newRedisStore)
+func TestRW_SessionDeleteKey(t *testing.T) {
+	tester.DeleteKey(t, newRWStore)
 }
 
-func TestRedis_SessionFlashes(t *testing.T) {
-	tester.Flashes(t, newRedisStore)
+func TestRW_SessionFlashes(t *testing.T) {
+	tester.Flashes(t, newRWStore)
 }
 
-func TestRedis_SessionClear(t *testing.T) {
-	tester.Clear(t, newRedisStore)
+func TestRW_SessionClear(t *testing.T) {
+	tester.Clear(t, newRWStore)
 }
 
-func TestRedis_SessionOptions(t *testing.T) {
-	tester.Options(t, newRedisStore)
+func TestRW_SessionOptions(t *testing.T) {
+	tester.Options(t, newRWStore)
 }
