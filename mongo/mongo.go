@@ -20,11 +20,5 @@ type store struct {
 }
 
 func (c *store) Options(options sessions.Options) {
-	c.MongoStore.Options = &gsessions.Options{
-		Path:     options.Path,
-		Domain:   options.Domain,
-		MaxAge:   options.MaxAge,
-		Secure:   options.Secure,
-		HttpOnly: options.HttpOnly,
-	}
+	c.MongoStore.Options = options.ToGorillaOptions()
 }

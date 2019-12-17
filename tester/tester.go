@@ -208,6 +208,9 @@ func Options(t *testing.T, newStore storeFactory) {
 		session.Save()
 		c.String(200, ok)
 	})
+
+	test_option_same_site(t, r)
+
 	res1 := httptest.NewRecorder()
 	req1, _ := http.NewRequest("GET", "/domain", nil)
 	r.ServeHTTP(res1, req1)
@@ -225,6 +228,7 @@ func Options(t *testing.T, newStore storeFactory) {
 	if s[1] != " Domain=localhost" {
 		t.Error("Error writing domain with options:", s[1])
 	}
+
 }
 
 func Many(t *testing.T, newStore storeFactory) {

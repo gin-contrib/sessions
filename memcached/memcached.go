@@ -33,11 +33,5 @@ type store struct {
 }
 
 func (c *store) Options(options sessions.Options) {
-	c.MemcacheStore.Options = &gsessions.Options{
-		Path:     options.Path,
-		Domain:   options.Domain,
-		MaxAge:   options.MaxAge,
-		Secure:   options.Secure,
-		HttpOnly: options.HttpOnly,
-	}
+	c.MemcacheStore.Options = options.ToGorillaOptions()
 }
