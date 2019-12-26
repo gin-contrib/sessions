@@ -1,4 +1,4 @@
-// +build !go1.11
+// +build go1.11
 
 package sessions
 
@@ -32,6 +32,7 @@ type Options struct {
 	MaxAge   int
 	Secure   bool
 	HttpOnly bool
+	SameSite http.SameSite
 }
 
 // Wraps thinly gorilla-session methods.

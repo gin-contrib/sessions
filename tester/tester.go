@@ -225,6 +225,10 @@ func Options(t *testing.T, newStore storeFactory) {
 	if s[1] != " Domain=localhost" {
 		t.Error("Error writing domain with options:", s[1])
 	}
+
+	if s[2] != " SameSite=Strict" {
+		t.Error("Error writing SameSite with options:", s[2])
+	}
 }
 
 func Many(t *testing.T, newStore storeFactory) {
