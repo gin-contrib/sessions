@@ -3,7 +3,6 @@ package mongo
 import (
 	"github.com/gin-contrib/sessions"
 	"github.com/globalsign/mgo"
-	gsessions "github.com/gorilla/sessions"
 	"github.com/kidstuff/mongostore"
 )
 

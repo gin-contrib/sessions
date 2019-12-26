@@ -6,7 +6,6 @@ import (
 	"github.com/boj/redistore"
 	"github.com/gin-contrib/sessions"
 	"github.com/gomodule/redigo/redis"
-	gsessions "github.com/gorilla/sessions"
 )
 
 type Store interface {
@@ -62,7 +61,6 @@ type store struct {
 }
 
 // GetRedisStore get the actual woking store.
-//
 // Ref: https://godoc.org/github.com/boj/redistore#RediStore
 func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
 	realStore, ok := s.(*store)
