@@ -209,7 +209,7 @@ func Options(t *testing.T, newStore storeFactory) {
 		c.String(200, ok)
 	})
 
-	test_option_same_site(t, r)
+	testOptionSameSitego(t, r)
 
 	res1 := httptest.NewRecorder()
 	req1, _ := http.NewRequest("GET", "/domain", nil)

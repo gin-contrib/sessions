@@ -1,4 +1,5 @@
 // +build go1.11
+
 package tester
 
 import (
@@ -11,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func test_option_same_site(t *testing.T, r *gin.Engine) {
+func testOptionSameSitego(t *testing.T, r *gin.Engine) {
 
 	r.GET("/sameSite", func(c *gin.Context) {
 		session := sessions.Default(c)

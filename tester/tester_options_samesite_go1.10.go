@@ -8,6 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func test_option_same_site(t *testing.T, r *gin.Engine) {
+func testOptionSameSitego(t *testing.T, r *gin.Engine) {
 	// not supported
 }
