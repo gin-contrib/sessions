@@ -30,7 +30,7 @@ install:
 
 script:
   - embedmd -d *.md
-  - go test -v -covermode=atomic -coverprofile=coverage.out
+  - go test -v -covermode=atomic -coverprofile=coverage.out ./...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
