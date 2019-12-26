@@ -87,11 +87,5 @@ func SetKeyPrefix(s Store, prefix string) error {
 }
 
 func (c *store) Options(options sessions.Options) {
-	c.RediStore.Options = &gsessions.Options{
-		Path:     options.Path,
-		Domain:   options.Domain,
-		MaxAge:   options.MaxAge,
-		Secure:   options.Secure,
-		HttpOnly: options.HttpOnly,
-	}
+	c.RediStore.Options = options.ToGorillaOptions()
 }

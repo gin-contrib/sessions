@@ -19,19 +19,6 @@ type Store interface {
 	Options(Options)
 }
 
-// Options stores configuration for a session or session store.
-// Fields are a subset of http.Cookie fields.
-type Options struct {
-	Path   string
-	Domain string
-	// MaxAge=0 means no 'Max-Age' attribute specified.
-	// MaxAge<0 means delete cookie now, equivalently 'Max-Age: 0'.
-	// MaxAge>0 means Max-Age attribute present and given in seconds.
-	MaxAge   int
-	Secure   bool
-	HttpOnly bool
-}
-
 // Wraps thinly gorilla-session methods.
 // Session stores the values and optional configuration for a session.
 type Session interface {
@@ -118,13 +105,7 @@ func (s *session) Flashes(vars ...string) []interface{} {
 }
 
 func (s *session) Options(options Options) {
-	s.Session().Options = &sessions.Options{
-		Path:     options.Path,
-		Domain:   options.Domain,
-		MaxAge:   options.MaxAge,
-		Secure:   options.Secure,
-		HttpOnly: options.HttpOnly,
-	}
+	s.Session().Options = options.ToGorillaOptions()
 }
 
 func (s *session) Save() error {
