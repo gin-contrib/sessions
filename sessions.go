@@ -42,6 +42,8 @@ type Session interface {
 	Options(Options)
 	// Save saves all sessions used during the current request.
 	Save() error
+        // Get session
+	Session() *sessions.Session
 }
 
 func Sessions(name string, store Store) gin.HandlerFunc {
