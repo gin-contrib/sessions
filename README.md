@@ -178,7 +178,7 @@ func main() {
 
 #### ASCII Protocol
 
-[embedmd]:# (example/memcached/ascii.go go)
+[embedmd]:# (example/memcached/ascii/ascii.go go)
 ```go
 package main
 
@@ -214,7 +214,7 @@ func main() {
 
 #### Binary protocol (with optional SASL authentication)
 
-[embedmd]:# (example/memcached/binary.go go)
+[embedmd]:# (example/memcached/binary/binary.go go)
 ```go
 package main
 
