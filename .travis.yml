@@ -1,27 +1,36 @@
 language: go
 sudo: false
 
-go:
-  - 1.6.x
-  - 1.7.x
-  - 1.8.x
-  - 1.9.x
-  - 1.10.x
-  - tip
+matrix:
+  fast_finish: true
+  include:
+  - go: 1.11.x
+    env: GO111MODULE=on
+  - go: 1.12.x
+    env: GO111MODULE=on
+  - go: 1.13.x
+  - go: 1.14.x
+  - go: master
+    env: GO111MODULE=on
+
+git:
+  depth: 10
 
 services:
   - redis
   - memcached
   - mongodb
 
-install:
-  - go get github.com/kardianos/govendor
+before_install:
   - go get github.com/campoy/embedmd
-  - govendor sync
+
+install:
+  - if [[ "${GO111MODULE}" = "on" ]]; then go mod download; else go get -t -v .; fi
+  - if [[ "${GO111MODULE}" = "on" ]]; then export PATH="${GOPATH}/bin:${GOROOT}/bin:${PATH}"; fi
 
 script:
   - embedmd -d *.md
-  - go test -v -covermode=atomic -coverprofile=coverage.out
+  - go test -v -covermode=atomic -coverprofile=coverage.out ./...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

@@ -31,7 +31,7 @@ func GetSet(t *testing.T, newStore storeFactory) {
 		session := sessions.Default(c)
 		session.Set("key", ok)
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/get", func(c *gin.Context) {
@@ -40,7 +40,7 @@ func GetSet(t *testing.T, newStore storeFactory) {
 			t.Error("Session writing failed")
 		}
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	res1 := httptest.NewRecorder()
@@ -61,14 +61,14 @@ func DeleteKey(t *testing.T, newStore storeFactory) {
 		session := sessions.Default(c)
 		session.Set("key", ok)
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/delete", func(c *gin.Context) {
 		session := sessions.Default(c)
 		session.Delete("key")
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/get", func(c *gin.Context) {
@@ -77,7 +77,7 @@ func DeleteKey(t *testing.T, newStore storeFactory) {
 			t.Error("Session deleting failed")
 		}
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	res1 := httptest.NewRecorder()
@@ -107,7 +107,7 @@ func Flashes(t *testing.T, newStore storeFactory) {
 		session := sessions.Default(c)
 		session.AddFlash(ok)
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/flash", func(c *gin.Context) {
@@ -117,7 +117,7 @@ func Flashes(t *testing.T, newStore storeFactory) {
 			t.Error("Flashes count does not equal 1. Equals ", l)
 		}
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/check", func(c *gin.Context) {
@@ -127,7 +127,7 @@ func Flashes(t *testing.T, newStore storeFactory) {
 			t.Error("flashes count is not 0 after reading. Equals ", l)
 		}
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	res1 := httptest.NewRecorder()
@@ -161,7 +161,7 @@ func Clear(t *testing.T, newStore storeFactory) {
 		}
 		session.Clear()
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	r.GET("/check", func(c *gin.Context) {
@@ -172,7 +172,7 @@ func Clear(t *testing.T, newStore storeFactory) {
 			}
 		}
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 
 	res1 := httptest.NewRecorder()
@@ -200,14 +200,17 @@ func Options(t *testing.T, newStore storeFactory) {
 			Path: "/foo/bar/bat",
 		})
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
 	r.GET("/path", func(c *gin.Context) {
 		session := sessions.Default(c)
 		session.Set("key", ok)
 		session.Save()
-		c.String(200, ok)
+		c.String(http.StatusOK, ok)
 	})
+
+	testOptionSameSitego(t, r)
+
 	res1 := httptest.NewRecorder()
 	req1, _ := http.NewRequest("GET", "/domain", nil)
 	r.ServeHTTP(res1, req1)
@@ -225,4 +228,48 @@ func Options(t *testing.T, newStore storeFactory) {
 	if s[1] != " Domain=localhost" {
 		t.Error("Error writing domain with options:", s[1])
 	}
+
+}
+
+func Many(t *testing.T, newStore storeFactory) {
+	r := gin.Default()
+	sessionNames := []string{"a", "b"}
+
+	r.Use(sessions.SessionsMany(sessionNames, newStore(t)))
+
+	r.GET("/set", func(c *gin.Context) {
+		sessionA := sessions.DefaultMany(c, "a")
+		sessionA.Set("hello", "world")
+		sessionA.Save()
+
+		sessionB := sessions.DefaultMany(c, "b")
+		sessionB.Set("foo", "bar")
+		sessionB.Save()
+		c.String(http.StatusOK, ok)
+	})
+
+	r.GET("/get", func(c *gin.Context) {
+		sessionA := sessions.DefaultMany(c, "a")
+		if sessionA.Get("hello") != "world" {
+			t.Error("Session writing failed")
+		}
+		sessionA.Save()
+
+		sessionB := sessions.DefaultMany(c, "b")
+		if sessionB.Get("foo") != "bar" {
+			t.Error("Session writing failed")
+		}
+		sessionB.Save()
+		c.String(http.StatusOK, ok)
+	})
+
+	res1 := httptest.NewRecorder()
+	req1, _ := http.NewRequest("GET", "/set", nil)
+	r.ServeHTTP(res1, req1)
+
+	res2 := httptest.NewRecorder()
+	req2, _ := http.NewRequest("GET", "/get", nil)
+	req2.Header.Set("Cookie", res1.Header().Get("Set-Cookie"))
+	r.ServeHTTP(res2, req2)
+
 }
