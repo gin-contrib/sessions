@@ -22,6 +22,7 @@ type Store interface {
 // Wraps thinly gorilla-session methods.
 // Session stores the values and optional configuration for a session.
 type Session interface {
+	ID() string
 	// Get returns the session value associated to the given key.
 	Get(key interface{}) interface{}
 	// Set sets the session value associated to the given key.
@@ -72,6 +73,10 @@ type session struct {
 	session *sessions.Session
 	written bool
 	writer  http.ResponseWriter
+}
+
+func (s *session) ID() string {
+	return s.Session().ID
 }
 
 func (s *session) Get(key interface{}) interface{} {
