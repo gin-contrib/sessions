@@ -98,9 +98,6 @@ func DeleteKey(t *testing.T, newStore storeFactory) {
 func Flashes(t *testing.T, newStore storeFactory) {
 	r := gin.Default()
 	store := newStore(t)
-	store.Options(sessions.Options{
-		Domain: "localhost",
-	})
 	r.Use(sessions.Sessions(sessionName, store))
 
 	r.GET("/set", func(c *gin.Context) {
