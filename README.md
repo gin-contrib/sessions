@@ -102,11 +102,11 @@ func main() {
 }
 ```
 
-## Backend examples
+## Backend Examples
 
 ### cookie-based
 
-[embedmd]:# (example/cookie/main.go go)
+[embedmd]:# (_example/cookie/main.go go)
 ```go
 package main
 
@@ -141,7 +141,7 @@ func main() {
 
 ### Redis
 
-[embedmd]:# (example/redis/main.go go)
+[embedmd]:# (_example/redis/main.go go)
 ```go
 package main
 
@@ -178,7 +178,7 @@ func main() {
 
 #### ASCII Protocol
 
-[embedmd]:# (example/memcached/ascii/ascii.go go)
+[embedmd]:# (_example/memcached/ascii/ascii.go go)
 ```go
 package main
 
@@ -214,7 +214,7 @@ func main() {
 
 #### Binary protocol (with optional SASL authentication)
 
-[embedmd]:# (example/memcached/binary/binary.go go)
+[embedmd]:# (_example/memcached/binary/binary.go go)
 ```go
 package main
 
@@ -251,7 +251,7 @@ func main() {
 
 ### MongoDB
 
-[embedmd]:# (example/mongo/main.go go)
+[embedmd]:# (_example/mongo/main.go go)
 ```go
 package main
 
@@ -293,7 +293,7 @@ func main() {
 
 ### memstore
 
-[embedmd]:# (example/memstore/main.go go)
+[embedmd]:# (_example/memstore/main.go go)
 ```go
 package main
 
@@ -325,5 +325,3 @@ func main() {
 	r.Run(":8000")
 }
 ```
-
-
