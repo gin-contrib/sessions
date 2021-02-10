@@ -266,7 +266,11 @@ func Many(t *testing.T, newStore storeFactory) {
 
 	res2 := httptest.NewRecorder()
 	req2, _ := http.NewRequest("GET", "/get", nil)
-	req2.Header.Set("Cookie", res1.Header().Get("Set-Cookie"))
+	header := ""
+	for _, x := range res1.Header()["Set-Cookie"] {
+		header += strings.Split(x, ";")[0] + "; \n"
+	}
+	req2.Header.Set("Cookie", header)
 	r.ServeHTTP(res2, req2)
 
 }

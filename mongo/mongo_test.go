@@ -39,3 +39,7 @@ func TestMongo_SessionClear(t *testing.T) {
 func TestMongo_SessionOptions(t *testing.T) {
 	tester.Options(t, newStore)
 }
+
+func TestMongo_SessionMany(t *testing.T) {
+	tester.Many(t, newStore)
+}
