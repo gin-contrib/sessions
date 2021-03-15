@@ -146,11 +146,10 @@ func main() {
 package main
 
 import (
-	"context"
 	"github.com/gin-contrib/sessions"
 	redistore "github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis"
 )
 
 func main() {
@@ -158,7 +157,7 @@ func main() {
 	redisStore := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 	})
-	store, _ := redistore.NewStore(context.Background(), redisStore)
+	store, _ := redistore.NewStore(redisStore)
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {

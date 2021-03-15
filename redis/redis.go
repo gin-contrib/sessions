@@ -1,12 +1,11 @@
 package redis
 
 import (
-	"context"
 	"errors"
 
 	"github.com/gin-contrib/sessions"
-	"github.com/go-redis/redis/v8"
-	"github.com/rbcervilla/redisstore/v8"
+	"github.com/go-redis/redis"
+	"github.com/rbcervilla/redisstore"
 )
 
 type Store interface {
@@ -14,8 +13,8 @@ type Store interface {
 }
 
 // NewStore - create new session store with given redis client interface
-func NewStore(context context.Context, client redis.UniversalClient) (sessions.Store, error) {
-	innerStore, err := redisstore.NewRedisStore(context, client)
+func NewStore(client redis.UniversalClient) (sessions.Store, error) {
+	innerStore, err := redisstore.NewRedisStore(client)
 	if err != nil {
 		return nil, err
 	}
