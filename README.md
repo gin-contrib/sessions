@@ -312,7 +312,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	store := gormsessions.NewStore(db, []byte("secret"))
+	store := gormsessions.NewStore(db, true, []byte("secret"))
 
 	r := gin.Default()
 	r.Use(sessions.Sessions("mysession", store))
