@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"github.com/go-redis/redis"
 	"testing"
 
 	"github.com/gin-contrib/sessions"
@@ -10,7 +11,10 @@ import (
 const redisTestServer = "localhost:6379"
 
 var newRedisStore = func(_ *testing.T) sessions.Store {
-	store, err := NewStore(10, "tcp", redisTestServer, "", []byte("secret"))
+	redisStore := redis.NewClient(&redis.Options{
+		Addr:     redisTestServer,
+	})
+	store, err := NewStore(redisStore)
 	if err != nil {
 		panic(err)
 	}
