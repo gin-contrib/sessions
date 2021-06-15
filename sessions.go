@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	DefaultKey  = "github.com/gin-contrib/sessions"
+	DefaultKey  = "github.com/rabex-io/sessions"
 	errorFormat = "[sessions] ERROR! %s\n"
 )
 

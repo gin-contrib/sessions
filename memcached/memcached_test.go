@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/bradfitz/gomemcache/memcache"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/tester"
 	"github.com/memcachier/mc"
+	"github.com/rabex-io/sessions"
+	"github.com/rabex-io/sessions/tester"
 )
 
 const memcachedTestServer = "localhost:11211"
