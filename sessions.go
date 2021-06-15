@@ -45,7 +45,7 @@ type Session interface {
 	// Save saves all sessions used during the current request.
 	Save() error
 
-	//
+	// Session returns gorilla session. Others can see session details e.g. ID.
 	Session() *sessions.Session
 }
 
