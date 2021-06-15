@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	DefaultKey  = "github.com/gin-contrib/sessions"
+	DefaultKey  = "github.com/rabex-io/sessions"
 	errorFormat = "[sessions] ERROR! %s\n"
 )
 
@@ -44,6 +44,9 @@ type Session interface {
 	Options(Options)
 	// Save saves all sessions used during the current request.
 	Save() error
+
+	// Session returns gorilla session. Others can see session details e.g. ID.
+	Session() *sessions.Session
 }
 
 func Sessions(name string, store Store) gin.HandlerFunc {

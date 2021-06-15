@@ -1,4 +1,4 @@
-module github.com/gin-contrib/sessions
+module github.com/rabex-io/sessions
 
 go 1.13
 
