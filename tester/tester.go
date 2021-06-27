@@ -186,16 +186,18 @@ func Options(t *testing.T, newStore storeFactory) {
 	r := gin.Default()
 	store := newStore(t)
 	store.Options(sessions.Options{
-		Domain: "localhost",
+		Path:     "/foo/bar/bat",
+		Domain:   "localhost",
+		MaxAge:   3600,
+		Secure:   false,
+		HttpOnly: false,
+		SameSite: 0,
 	})
 	r.Use(sessions.Sessions(sessionName, store))
 
 	r.GET("/domain", func(c *gin.Context) {
 		session := sessions.Default(c)
 		session.Set("key", ok)
-		session.Options(sessions.Options{
-			Path: "/foo/bar/bat",
-		})
 		session.Save()
 		c.String(http.StatusOK, ok)
 	})
@@ -212,17 +214,12 @@ func Options(t *testing.T, newStore storeFactory) {
 	req1, _ := http.NewRequest("GET", "/domain", nil)
 	r.ServeHTTP(res1, req1)
 
-	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequest("GET", "/path", nil)
-	r.ServeHTTP(res2, req2)
-
 	s := strings.Split(res1.Header().Get("Set-Cookie"), ";")
 	if s[1] != " Path=/foo/bar/bat" {
 		t.Error("Error writing path with options:", s[1])
 	}
 
-	s = strings.Split(res2.Header().Get("Set-Cookie"), ";")
-	if s[1] != " Domain=localhost" {
+	if s[2] != " Domain=localhost" {
 		t.Error("Error writing domain with options:", s[1])
 	}
 
