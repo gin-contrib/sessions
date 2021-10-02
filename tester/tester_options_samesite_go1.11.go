@@ -13,14 +13,13 @@ import (
 )
 
 func testOptionSameSitego(t *testing.T, r *gin.Engine) {
-
 	r.GET("/sameSite", func(c *gin.Context) {
 		session := sessions.Default(c)
 		session.Set("key", ok)
 		session.Options(sessions.Options{
 			SameSite: http.SameSiteStrictMode,
 		})
-		session.Save()
+		_ = session.Save()
 		c.String(200, ok)
 	})
 
