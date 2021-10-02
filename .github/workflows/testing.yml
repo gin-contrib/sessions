@@ -33,7 +33,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          go test -v -covermode=atomic -coverprofile=coverage.out .
+          go test -v -covermode=atomic -coverprofile=coverage.out ./...
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
