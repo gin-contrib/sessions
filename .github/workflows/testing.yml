@@ -1,0 +1,39 @@
+name: Run Testing
+on: push
+
+jobs:
+  # Label of the container job
+  runner-job:
+    # You must use a Linux environment when using service containers or container jobs
+    runs-on: ubuntu-latest
+
+    env:
+      GO111MODULE: on
+      GOPROXY: https://proxy.golang.org
+    steps:
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.2.0
+        with:
+          redis-version: 4
+
+      - name: Start MongoDB 4.2
+        uses: supercharge/mongodb-github-action@1.2.0
+        with:
+          mongodb-version: 4.2
+
+      - uses: niden/actions-memcached@v7
+
+      - name: Set up Go ${{ matrix.go }}
+        uses: actions/setup-go@v2
+
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Run Tests
+        run: |
+          go test -v -covermode=atomic -coverprofile=coverage.out ./...
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
