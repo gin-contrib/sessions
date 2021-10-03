@@ -3,6 +3,7 @@ module github.com/gin-contrib/sessions
 go 1.13
 
 require (
+	github.com/2-72/gorilla-sessions-mongodb v0.0.0-20200523131342-84372f8fd8ee
 	github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff
 	github.com/bradfitz/gomemcache v0.0.0-20190913173617-a41fca850d0b
 	github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1
@@ -15,4 +16,5 @@ require (
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/stretchr/testify v1.7.0 // indirect
+	go.mongodb.org/mongo-driver v1.7.2
 )
