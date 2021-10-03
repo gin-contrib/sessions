@@ -13,6 +13,7 @@ Gin middleware for session management with multi-backend support:
 - [Redis](#redis)
 - [memcached](#memcached)
 - [MongoDB](#mongodb)
+- [MongoDB official driver](#mongodb-official-driver)
 - [memstore](#memstore)
 
 ## Usage
@@ -285,6 +286,50 @@ func main() {
   })
   r.Run(":8000")
 }
+```
+
+### mongodb-official-driver
+
+```go
+package main
+
+import (
+	"context"
+	"time"
+
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/sessions/officialmongo"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
+
+func main() {
+	r := gin.Default()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	connect := options.Client().ApplyURI("localhost:27017")
+	client, err := mongo.Connect(ctx, connect)
+	if err != nil {
+		panic(err)
+	}
+	coll := client.Database("test").Collection("sessions")
+	store := officialmongo.NewStore(coll, 3600, true, []byte("secret"))
+	r.Use(sessions.Sessions("mysession", store))
+
+	r.GET("/hello", func(c *gin.Context) {
+		session := sessions.Default(c)
+
+		if session.Get("hello") != "world" {
+			session.Set("hello", "world")
+			session.Save()
+		}
+
+		c.JSON(200, gin.H{"hello": session.Get("hello")})
+	})
+	r.Run(":8000")
+}
+
 ```
 
 ### memstore
