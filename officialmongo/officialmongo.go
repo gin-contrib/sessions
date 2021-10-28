@@ -10,14 +10,14 @@ import (
 var collection *mongo.Collection
 var keyPairs []byte
 
-// Store 連接 gin session
+// Store interface gin session Store
 type Store interface {
 	sessions.Store
 }
 
 var cfg = mongodbstore.MongoDBStoreConfig{}
 
-// NewStore 連接 mongodb
+// NewStore connect mongodb settings
 func NewStore(c *mongo.Collection, maxAge int, ensureTTL bool, k []byte) Store {
 	collection = c
 	keyPairs = k
