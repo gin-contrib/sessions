@@ -21,6 +21,14 @@ jobs:
         with:
           mongodb-version: 4.2
 
+      - name: Start PostgreSQL 14
+        uses: harmon758/postgresql-action@v1
+        with:
+          postgresql db: testdb
+          postgresql user: testuser
+          postgresql password: testpw
+          postgresql version: '14'
+
       - uses: niden/actions-memcached@v7
 
       - name: Set up Go ${{ matrix.go }}
