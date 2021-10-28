@@ -4,19 +4,13 @@ import (
 	"database/sql"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/tester"
-	"os"
 	"testing"
 )
 
+const postgresTestServer = "postgres://testuser:testpw@localhost:5432/testdb?sslmode=disable"
 
 var newStore = func(_ *testing.T) sessions.Store {
-	// Env var in the format postgresql://username:password@localhost:5432/database?sslmode=disable required
-	dsn := os.Getenv("SESSIONS_POSTGRES_TEST")
-	if dsn == "" {
-		panic("database connection is required")
-	}
-
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("postgres", postgresTestServer)
 	if err != nil {
 		panic(err)
 	}
