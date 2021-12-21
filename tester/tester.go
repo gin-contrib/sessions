@@ -306,3 +306,54 @@ func Many(t *testing.T, newStore storeFactory) {
 	req2.Header.Set("Cookie", header)
 	r.ServeHTTP(res2, req2)
 }
+
+func ManyStores(t *testing.T, newStore storeFactory) {
+	r := gin.Default()
+
+	store := newStore(t)
+	sessionStores := []sessions.SessionStore{
+		{Name: "a", Store: store},
+		{Name: "b", Store: store},
+	}
+
+	r.Use(sessions.SessionsManyStores(sessionStores))
+
+	r.GET("/set", func(c *gin.Context) {
+		sessionA := sessions.DefaultMany(c, "a")
+		sessionA.Set("hello", "world")
+		_ = sessionA.Save()
+
+		sessionB := sessions.DefaultMany(c, "b")
+		sessionB.Set("foo", "bar")
+		_ = sessionB.Save()
+		c.String(http.StatusOK, ok)
+	})
+
+	r.GET("/get", func(c *gin.Context) {
+		sessionA := sessions.DefaultMany(c, "a")
+		if sessionA.Get("hello") != "world" {
+			t.Error("Session writing failed")
+		}
+		_ = sessionA.Save()
+
+		sessionB := sessions.DefaultMany(c, "b")
+		if sessionB.Get("foo") != "bar" {
+			t.Error("Session writing failed")
+		}
+		_ = sessionB.Save()
+		c.String(http.StatusOK, ok)
+	})
+
+	res1 := httptest.NewRecorder()
+	req1, _ := http.NewRequest("GET", "/set", nil)
+	r.ServeHTTP(res1, req1)
+
+	res2 := httptest.NewRecorder()
+	req2, _ := http.NewRequest("GET", "/get", nil)
+	header := ""
+	for _, x := range res1.Header()["Set-Cookie"] {
+		header += strings.Split(x, ";")[0] + "; \n"
+	}
+	req2.Header.Set("Cookie", header)
+	r.ServeHTTP(res2, req2)
+}

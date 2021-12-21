@@ -104,6 +104,56 @@ func main() {
 }
 ```
 
+### multiple sessions with different stores
+
+```go
+package main
+
+import (
+  "github.com/gin-contrib/sessions"
+  "github.com/gin-contrib/sessions/cookie"
+  "github.com/gin-gonic/gin"
+)
+
+func main() {
+  r := gin.Default()
+  cookieStore := cookie.NewStore([]byte("secret"))
+  redisStore, _ := redis.NewStore(10, "tcp", "localhost:6379", "", []byte("secret"))
+  sessionStores := []sessions.SessionStore{
+    {
+      Name:  "a",
+      Store: cookieStore,
+    },
+    {
+      Name:  "b",
+      Store: redisStore,
+    },
+  }
+  r.Use(sessions.SessionsManyStores(sessionStores))
+
+  r.GET("/hello", func(c *gin.Context) {
+    sessionA := sessions.DefaultMany(c, "a")
+    sessionB := sessions.DefaultMany(c, "b")
+
+    if sessionA.Get("hello") != "world!" {
+      sessionA.Set("hello", "world!")
+      sessionA.Save()
+    }
+
+    if sessionB.Get("hello") != "world?" {
+      sessionB.Set("hello", "world?")
+      sessionB.Save()
+    }
+
+    c.JSON(200, gin.H{
+      "a": sessionA.Get("hello"),
+      "b": sessionB.Get("hello"),
+    })
+  })
+  r.Run(":8000")
+}
+```
+
 ## Backend Examples
 
 ### cookie-based

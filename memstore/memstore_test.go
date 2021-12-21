@@ -35,3 +35,7 @@ func TestCookie_SessionOptions(t *testing.T) {
 func TestCookie_SessionMany(t *testing.T) {
 	tester.Many(t, newStore)
 }
+
+func TestCookie_SessionManyStores(t *testing.T) {
+	tester.ManyStores(t, newStore)
+}

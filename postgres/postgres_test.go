@@ -46,3 +46,7 @@ func TestPostgres_SessionOptions(t *testing.T) {
 func TestPostgres_SessionMany(t *testing.T) {
 	tester.Many(t, newStore)
 }
+
+func TestPostgres_SessionManyStores(t *testing.T) {
+	tester.ManyStores(t, newStore)
+}
