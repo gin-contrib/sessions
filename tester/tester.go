@@ -205,6 +205,28 @@ func Options(t *testing.T, newStore storeFactory) {
 		_ = session.Save()
 		c.String(http.StatusOK, ok)
 	})
+	r.GET("/set", func(c *gin.Context) {
+		session := sessions.Default(c)
+		session.Set("key", ok)
+		_ = session.Save()
+		c.String(http.StatusOK, ok)
+	})
+	r.GET("/expire", func(c *gin.Context) {
+		session := sessions.Default(c)
+		session.Options(sessions.Options{
+			MaxAge: -1,
+		})
+		_ = session.Save()
+		c.String(http.StatusOK, ok)
+	})
+	r.GET("/check", func(c *gin.Context) {
+		session := sessions.Default(c)
+		val := session.Get("key")
+		if val != nil {
+			t.Fatal("Session expiration failed")
+		}
+		c.String(http.StatusOK, ok)
+	})
 
 	testOptionSameSitego(t, r)
 
@@ -215,6 +237,18 @@ func Options(t *testing.T, newStore storeFactory) {
 	res2 := httptest.NewRecorder()
 	req2, _ := http.NewRequest("GET", "/path", nil)
 	r.ServeHTTP(res2, req2)
+
+	res3 := httptest.NewRecorder()
+	req3, _ := http.NewRequest("GET", "/set", nil)
+	r.ServeHTTP(res3, req3)
+
+	res4 := httptest.NewRecorder()
+	req4, _ := http.NewRequest("GET", "/expire", nil)
+	r.ServeHTTP(res4, req4)
+
+	res5 := httptest.NewRecorder()
+	req5, _ := http.NewRequest("GET", "/check", nil)
+	r.ServeHTTP(res5, req5)
 
 	s := strings.Split(res1.Header().Get("Set-Cookie"), ";")
 	if s[1] != " Path=/foo/bar/bat" {
