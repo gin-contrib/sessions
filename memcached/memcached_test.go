@@ -41,6 +41,10 @@ func TestMemcached_SessionMany(t *testing.T) {
 	tester.Many(t, newStore)
 }
 
+func TestMemcached_SessionManyStores(t *testing.T) {
+	tester.ManyStores(t, newStore)
+}
+
 var newBinaryStore = func(_ *testing.T) sessions.Store {
 	store := NewMemcacheStore(
 		mc.NewMC(memcachedTestServer, "", ""), "", []byte("secret"))
@@ -69,4 +73,8 @@ func TestBinaryMemcached_SessionOptions(t *testing.T) {
 
 func TestBinaryMemcached_SessionMany(t *testing.T) {
 	tester.Many(t, newBinaryStore)
+}
+
+func TestBinaryMemcached_SessionManyStpres(t *testing.T) {
+	tester.ManyStores(t, newBinaryStore)
 }

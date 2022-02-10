@@ -41,6 +41,10 @@ func TestRedis_SessionMany(t *testing.T) {
 	tester.Many(t, newRedisStore)
 }
 
+func TestRedis_SessionManyStores(t *testing.T) {
+	tester.ManyStores(t, newRedisStore)
+}
+
 func TestGetRedisStore(t *testing.T) {
 	t.Run("unmatched type", func(t *testing.T) {
 		type store struct{ Store }
