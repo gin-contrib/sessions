@@ -49,7 +49,7 @@ func GetSet(t *testing.T, newStore storeFactory) {
 
 	res2 := httptest.NewRecorder()
 	req2, _ := http.NewRequest("GET", "/get", nil)
-	req2.Header.Set("Cookie", res1.Header().Get("Set-Cookie"))
+	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 }
 
@@ -86,12 +86,12 @@ func DeleteKey(t *testing.T, newStore storeFactory) {
 
 	res2 := httptest.NewRecorder()
 	req2, _ := http.NewRequest("GET", "/delete", nil)
-	req2.Header.Set("Cookie", res1.Header().Get("Set-Cookie"))
+	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 
 	res3 := httptest.NewRecorder()
 	req3, _ := http.NewRequest("GET", "/get", nil)
-	req3.Header.Set("Cookie", res2.Header().Get("Set-Cookie"))
+	copyCookies(req3, res2)
 	r.ServeHTTP(res3, req3)
 }
 
@@ -133,12 +133,12 @@ func Flashes(t *testing.T, newStore storeFactory) {
 
 	res2 := httptest.NewRecorder()
 	req2, _ := http.NewRequest("GET", "/flash", nil)
-	req2.Header.Set("Cookie", res1.Header().Get("Set-Cookie"))
+	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 
 	res3 := httptest.NewRecorder()
 	req3, _ := http.NewRequest("GET", "/check", nil)
-	req3.Header.Set("Cookie", res2.Header().Get("Set-Cookie"))
+	copyCookies(req3, res2)
 	r.ServeHTTP(res3, req3)
 }
 
@@ -178,7 +178,7 @@ func Clear(t *testing.T, newStore storeFactory) {
 
 	res2 := httptest.NewRecorder()
 	req2, _ := http.NewRequest("GET", "/check", nil)
-	req2.Header.Set("Cookie", res1.Header().Get("Set-Cookie"))
+	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 }
 
@@ -250,14 +250,18 @@ func Options(t *testing.T, newStore storeFactory) {
 	req5, _ := http.NewRequest("GET", "/check", nil)
 	r.ServeHTTP(res5, req5)
 
-	s := strings.Split(res1.Header().Get("Set-Cookie"), ";")
-	if s[1] != " Path=/foo/bar/bat" {
-		t.Error("Error writing path with options:", s[1])
+	for _, c := range res1.Header().Values("Set-Cookie") {
+		s := strings.Split(c, ";")
+		if s[1] != " Path=/foo/bar/bat" {
+			t.Error("Error writing path with options:", s[1])
+		}
 	}
 
-	s = strings.Split(res2.Header().Get("Set-Cookie"), ";")
-	if s[1] != " Domain=localhost" {
-		t.Error("Error writing domain with options:", s[1])
+	for _, c := range res2.Header().Values("Set-Cookie") {
+		s := strings.Split(c, ";")
+		if s[1] != " Domain=localhost" {
+			t.Error("Error writing domain with options:", s[1])
+		}
 	}
 }
 
@@ -305,4 +309,8 @@ func Many(t *testing.T, newStore storeFactory) {
 	}
 	req2.Header.Set("Cookie", header)
 	r.ServeHTTP(res2, req2)
+}
+
+func copyCookies(req *http.Request, res *httptest.ResponseRecorder) {
+	req.Header.Set("Cookie", strings.Join(res.Header().Values("Set-Cookie"), "; "))
 }
