@@ -15,9 +15,7 @@ require (
 	github.com/kidstuff/mongostore v0.0.0-20181113001930-e650cd85ee4b
 	github.com/lib/pq v1.10.3 // indirect
 	github.com/memcachier/mc v2.0.1+incompatible
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
-	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/wader/gormstore/v2 v2.0.0
 	gorm.io/driver/sqlite v1.1.4
 	gorm.io/gorm v1.20.12
