@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gorilla/context"
 	"github.com/gorilla/sessions"
 )
 
@@ -50,7 +49,6 @@ func Sessions(name string, store Store) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		s := &session{name, c.Request, store, nil, false, c.Writer}
 		c.Set(DefaultKey, s)
-		defer context.Clear(c.Request)
 		c.Next()
 	}
 }
@@ -62,7 +60,6 @@ func SessionsMany(names []string, store Store) gin.HandlerFunc {
 			sessions[name] = &session{name, c.Request, store, nil, false, c.Writer}
 		}
 		c.Set(DefaultKey, sessions)
-		defer context.Clear(c.Request)
 		c.Next()
 	}
 }
