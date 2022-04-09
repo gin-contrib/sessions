@@ -4,6 +4,7 @@ import (
 	"context"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"testing"
+	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/tester"
@@ -13,19 +14,16 @@ import (
 const mongoTestServer = "mongodb://localhost:27017"
 
 var newStore = func(_ *testing.T) sessions.Store {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	client, err := mongo.NewClient(options.Client().ApplyURI(mongoTestServer))
 	if err != nil {
 		panic(err)
 	}
 
-	if err := client.Connect(context.Background()); err != nil {
+	if err := client.Connect(ctx); err != nil {
 		panic(err)
 	}
-	defer func() {
-		if err := client.Disconnect(context.Background()); err != nil {
-			panic(err)
-		}
-	}()
 
 	c := client.Database("test").Collection("sessions")
 	return NewStore(c, 3600, true, []byte("secret"))
