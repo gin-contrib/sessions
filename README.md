@@ -305,19 +305,15 @@ import (
 
 func main() {
 	r := gin.Default()
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	mongoOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	client, err := mongo.NewClient(mongoOptions)
 	if err != nil {
-		panic(err)
+		// handle err
 	}
 
 	if err := client.Connect(context.Background()); err != nil {
-		panic(err)
+		// handle err
 	}
-	defer func() {
-		if err := client.Disconnect(context.Background()); err != nil {
-			panic(err)
-		}
-	}()
 
 	c := client.Database("test").Collection("sessions")
 	store := mongodriver.NewStore(c, 3600, true, []byte("secret"))
