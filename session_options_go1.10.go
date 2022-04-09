@@ -1,4 +1,4 @@
-// +build !go1.11
+//go:build !go1.11
 
 package sessions
 
