@@ -305,7 +305,7 @@ import (
 
 func main() {
 	r := gin.Default()
-	client, err := mongo.NewClient(options.Client().ApplyURI("localhost:27017"))
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
 	if err != nil {
 		panic(err)
 	}
