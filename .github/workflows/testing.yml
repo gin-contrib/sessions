@@ -1,5 +1,11 @@
 name: Run Testing
-on: push
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   # Label of the container job
