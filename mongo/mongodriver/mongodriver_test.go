@@ -2,13 +2,13 @@ package mongodriver
 
 import (
 	"context"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"testing"
 	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/tester"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const mongoTestServer = "mongodb://localhost:27017"
