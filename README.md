@@ -250,12 +250,13 @@ func main() {
 
 ### MongoDB
 
+#### mgo
 ```go
 package main
 
 import (
   "github.com/gin-contrib/sessions"
-  "github.com/gin-contrib/sessions/mongo"
+  "github.com/gin-contrib/sessions/mongo/mongomgo"
   "github.com/gin-gonic/gin"
   "github.com/globalsign/mgo"
 )
@@ -268,7 +269,54 @@ func main() {
   }
 
   c := session.DB("").C("sessions")
-  store := mongo.NewStore(c, 3600, true, []byte("secret"))
+  store := mongomgo.NewStore(c, 3600, true, []byte("secret"))
+  r.Use(sessions.Sessions("mysession", store))
+
+  r.GET("/incr", func(c *gin.Context) {
+    session := sessions.Default(c)
+    var count int
+    v := session.Get("count")
+    if v == nil {
+      count = 0
+    } else {
+      count = v.(int)
+      count++
+    }
+    session.Set("count", count)
+    session.Save()
+    c.JSON(200, gin.H{"count": count})
+  })
+  r.Run(":8000")
+}
+```
+
+#### mongo-driver
+```
+package main
+
+import (
+  "context"
+  "github.com/gin-contrib/sessions"
+  "github.com/gin-contrib/sessions/mongo/mongodriver"
+  "github.com/gin-gonic/gin"
+  "go.mongodb.org/mongo-driver/mongo"
+  "go.mongodb.org/mongo-driver/mongo/options"
+)
+
+func main() {
+  r := gin.Default()
+  mongoOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+  client, err := mongo.NewClient(mongoOptions)
+  if err != nil {
+    // handle err
+  }
+
+  if err := client.Connect(context.Background()); err != nil {
+    // handle err
+  }
+
+  c := client.Database("test").Collection("sessions")
+  store := mongodriver.NewStore(c, 3600, true, []byte("secret"))
   r.Use(sessions.Sessions("mysession", store))
 
   r.GET("/incr", func(c *gin.Context) {
@@ -330,38 +378,38 @@ func main() {
 package main
 
 import (
-	"github.com/gin-contrib/sessions"
-	gormsessions "github.com/gin-contrib/sessions/gorm"
-	"github.com/gin-gonic/gin"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
+  "github.com/gin-contrib/sessions"
+  gormsessions "github.com/gin-contrib/sessions/gorm"
+  "github.com/gin-gonic/gin"
+  "gorm.io/driver/sqlite"
+  "gorm.io/gorm"
 )
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-	if err != nil {
-		panic(err)
-	}
-	store := gormsessions.NewStore(db, true, []byte("secret"))
+  db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+  if err != nil {
+    panic(err)
+  }
+  store := gormsessions.NewStore(db, true, []byte("secret"))
 
-	r := gin.Default()
-	r.Use(sessions.Sessions("mysession", store))
+  r := gin.Default()
+  r.Use(sessions.Sessions("mysession", store))
 
-	r.GET("/incr", func(c *gin.Context) {
-		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
-		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
-	})
-	r.Run(":8000")
+  r.GET("/incr", func(c *gin.Context) {
+    session := sessions.Default(c)
+    var count int
+    v := session.Get("count")
+    if v == nil {
+      count = 0
+    } else {
+      count = v.(int)
+      count++
+    }
+    session.Set("count", count)
+    session.Save()
+    c.JSON(200, gin.H{"count": count})
+  })
+  r.Run(":8000")
 }
 ```
 
@@ -371,40 +419,40 @@ func main() {
 package main
 
 import (
-	"database/sql"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/postgres"
-	"github.com/gin-gonic/gin"
+  "database/sql"
+  "github.com/gin-contrib/sessions"
+  "github.com/gin-contrib/sessions/postgres"
+  "github.com/gin-gonic/gin"
 )
 
 func main() {
-	r := gin.Default()
-	db, err := sql.Open("postgres", "postgresql://username:password@localhost:5432/database")
-	if err != nil {
-		// handle err
-	}
+  r := gin.Default()
+  db, err := sql.Open("postgres", "postgresql://username:password@localhost:5432/database")
+  if err != nil {
+    // handle err
+  }
 
-	store, err := postgres.NewStore(db, []byte("secret"))
-	if err != nil {
-		// handle err
-	}
+  store, err := postgres.NewStore(db, []byte("secret"))
+  if err != nil {
+    // handle err
+  }
 
-	r.Use(sessions.Sessions("mysession", store))
+  r.Use(sessions.Sessions("mysession", store))
 
-	r.GET("/incr", func(c *gin.Context) {
-		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
-		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
-	})
-	r.Run(":8000")
+  r.GET("/incr", func(c *gin.Context) {
+    session := sessions.Default(c)
+    var count int
+    v := session.Get("count")
+    if v == nil {
+      count = 0
+    } else {
+      count = v.(int)
+      count++
+    }
+    session.Set("count", count)
+    session.Save()
+    c.JSON(200, gin.H{"count": count})
+  })
+  r.Run(":8000")
 }
 ```

@@ -1,4 +1,4 @@
-package mongo
+package mongomgo
 
 import (
 	"github.com/gin-contrib/sessions"
@@ -6,11 +6,11 @@ import (
 	"github.com/kidstuff/mongostore"
 )
 
-type Store interface {
-	sessions.Store
-}
+var (
+	_ sessions.Store = (*store)(nil)
+)
 
-func NewStore(c *mgo.Collection, maxAge int, ensureTTL bool, keyPairs ...[]byte) Store {
+func NewStore(c *mgo.Collection, maxAge int, ensureTTL bool, keyPairs ...[]byte) sessions.Store {
 	return &store{mongostore.NewMongoStore(c, maxAge, ensureTTL, keyPairs...)}
 }
 

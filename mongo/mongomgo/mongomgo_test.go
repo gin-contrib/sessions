@@ -1,4 +1,4 @@
-package mongo
+package mongomgo
 
 import (
 	"testing"
@@ -20,26 +20,26 @@ var newStore = func(_ *testing.T) sessions.Store {
 	return NewStore(c, 3600, true, []byte("secret"))
 }
 
-func TestMongo_SessionGetSet(t *testing.T) {
+func TestMongoMGOMGO_SessionGetSet(t *testing.T) {
 	tester.GetSet(t, newStore)
 }
 
-func TestMongo_SessionDeleteKey(t *testing.T) {
+func TestMongoMGO_SessionDeleteKey(t *testing.T) {
 	tester.DeleteKey(t, newStore)
 }
 
-func TestMongo_SessionFlashes(t *testing.T) {
+func TestMongoMGO_SessionFlashes(t *testing.T) {
 	tester.Flashes(t, newStore)
 }
 
-func TestMongo_SessionClear(t *testing.T) {
+func TestMongoMGO_SessionClear(t *testing.T) {
 	tester.Clear(t, newStore)
 }
 
-func TestMongo_SessionOptions(t *testing.T) {
+func TestMongoMGO_SessionOptions(t *testing.T) {
 	tester.Options(t, newStore)
 }
 
-func TestMongo_SessionMany(t *testing.T) {
+func TestMongoMGO_SessionMany(t *testing.T) {
 	tester.Many(t, newStore)
 }
