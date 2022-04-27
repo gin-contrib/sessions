@@ -18,7 +18,7 @@ require (
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/wader/gormstore/v2 v2.0.0
 	go.mongodb.org/mongo-driver v1.9.0
-	gorm.io/driver/sqlite v1.1.4
+	gorm.io/driver/sqlite v1.3.2
 	gorm.io/gorm v1.23.5
 )
 
@@ -32,7 +32,7 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/securecookie v1.1.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/jinzhu/now v1.1.4 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
