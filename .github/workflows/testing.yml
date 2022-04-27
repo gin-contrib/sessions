@@ -38,7 +38,7 @@ jobs:
       - uses: niden/actions-memcached@v7
 
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
 
       - name: Checkout Code
         uses: actions/checkout@v3
