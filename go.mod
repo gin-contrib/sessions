@@ -8,7 +8,7 @@ require (
 	github.com/bos-hieu/mongostore v0.0.2
 	github.com/bradfitz/gomemcache v0.0.0-20190913173617-a41fca850d0b
 	github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1
-	github.com/gin-gonic/gin v1.7.4
+	github.com/gin-gonic/gin v1.7.7
 	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/gorilla/context v1.1.1
@@ -18,8 +18,8 @@ require (
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/wader/gormstore/v2 v2.0.0
 	go.mongodb.org/mongo-driver v1.9.0
-	gorm.io/driver/sqlite v1.1.4
-	gorm.io/gorm v1.20.12
+	gorm.io/driver/sqlite v1.3.2
+	gorm.io/gorm v1.23.5
 )
 
 require (
@@ -32,7 +32,7 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/securecookie v1.1.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/jinzhu/now v1.1.1 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
