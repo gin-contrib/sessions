@@ -1,21 +1,28 @@
 package main
 
 import (
+	"context"
 	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/mongo"
+	"github.com/gin-contrib/sessions/mongo/mongodriver"
 	"github.com/gin-gonic/gin"
-	"github.com/globalsign/mgo"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func main() {
 	r := gin.Default()
-	session, err := mgo.Dial("localhost:27017/test")
+	mongoOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	client, err := mongo.NewClient(mongoOptions)
 	if err != nil {
 		// handle err
 	}
 
-	c := session.DB("").C("sessions")
-	store := mongo.NewStore(c, 3600, true, []byte("secret"))
+	if err := client.Connect(context.Background()); err != nil {
+		// handle err
+	}
+
+	c := client.Database("test").Collection("sessions")
+	store := mongodriver.NewStore(c, 3600, true, []byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/incr", func(c *gin.Context) {

@@ -5,8 +5,8 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        go: [1.16, 1.17]
+        os: [ubuntu-latest]
+        go: [1.16, 1.17, 1.18]
     name: ${{ matrix.os }} @ Go ${{ matrix.go }}
     runs-on: ${{ matrix.os }}
 
@@ -16,17 +16,17 @@ jobs:
       GOPROXY: https://proxy.golang.org
     steps:
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go }}
 
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.ref }}
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
-          version: v1.42.1
+          version: v1.45.0
           args: --verbose

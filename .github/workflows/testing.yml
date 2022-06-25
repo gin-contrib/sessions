@@ -1,5 +1,11 @@
 name: Run Testing
-on: push
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   # Label of the container job
@@ -12,12 +18,12 @@ jobs:
       GOPROXY: https://proxy.golang.org
     steps:
       - name: Start Redis
-        uses: supercharge/redis-github-action@1.2.0
+        uses: supercharge/redis-github-action@1.4.0
         with:
           redis-version: 4
 
       - name: Start MongoDB 4.2
-        uses: supercharge/mongodb-github-action@1.2.0
+        uses: supercharge/mongodb-github-action@1.7.0
         with:
           mongodb-version: 4.2
 
@@ -32,10 +38,10 @@ jobs:
       - uses: niden/actions-memcached@v7
 
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
 
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.ref }}
 
@@ -44,4 +50,4 @@ jobs:
           go test -v -covermode=atomic -coverprofile=coverage.out ./...
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
