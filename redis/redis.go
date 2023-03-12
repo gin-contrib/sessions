@@ -26,7 +26,7 @@ type Store interface {
 // if set, must be either 16, 24, or 32 bytes to select AES-128, AES-192, or AES-256 modes.
 func NewStore(client *redis.Client, keyPrefix string, keyPairs ...[]byte) Store {
 	s := redisstore.New(
-		adapter.WithGoRedis(client),
+		adapter.UseGoRedis(client),
 		keyPairs,
 		redisstore.WithKeyPrefix(keyPrefix),
 	)
