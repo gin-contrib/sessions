@@ -17,7 +17,7 @@ require (
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/wader/gormstore/v2 v2.0.3
-	go.mongodb.org/mongo-driver v1.11.1
+	go.mongodb.org/mongo-driver v1.11.4
 	gorm.io/driver/sqlite v1.4.4
 	gorm.io/gorm v1.24.5
 )
