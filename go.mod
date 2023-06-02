@@ -1,4 +1,4 @@
-module github.com/gin-contrib/sessions
+module github.com/cpusoft/gin-contrib-sessions
 
 go 1.18
 
