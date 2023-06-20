@@ -13,7 +13,7 @@ require (
 	github.com/gorilla/context v1.1.1
 	github.com/gorilla/sessions v1.2.1
 	github.com/kidstuff/mongostore v0.0.0-20181113001930-e650cd85ee4b
-	github.com/laziercoder/mongostore v0.0.4
+	github.com/laziercoder/mongostore v0.0.5
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/wader/gormstore/v2 v2.0.0
