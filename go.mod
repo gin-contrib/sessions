@@ -13,11 +13,11 @@ require (
 	github.com/gorilla/context v1.1.1
 	github.com/gorilla/sessions v1.2.1
 	github.com/kidstuff/mongostore v0.0.0-20181113001930-e650cd85ee4b
-	github.com/laziercoder/mongostore v0.0.5
+	github.com/laziercoder/mongostore v0.0.6
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/wader/gormstore/v2 v2.0.3
-	go.mongodb.org/mongo-driver v1.11.1
+	go.mongodb.org/mongo-driver v1.11.7
 	gorm.io/driver/sqlite v1.4.4
 	gorm.io/gorm v1.24.5
 )
