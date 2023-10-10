@@ -6,9 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var (
-	_ sessions.Store = (*store)(nil)
-)
+var _ sessions.Store = (*store)(nil)
 
 func NewStore(c *mongo.Collection, maxAge int, ensureTTL bool, keyPairs ...[]byte) sessions.Store {
 	return &store{mongostore.NewMongoStore(c, maxAge, ensureTTL, keyPairs...)}
