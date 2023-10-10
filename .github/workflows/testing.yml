@@ -10,12 +10,13 @@ on:
 jobs:
   # Label of the container job
   runner-job:
-    # You must use a Linux environment when using service containers or container jobs
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        go: [1.19, "1.20", 1.21]
+    name: ${{ matrix.os }} @ Go ${{ matrix.go }}
+    runs-on: ${{ matrix.os }}
 
-    env:
-      GO111MODULE: on
-      GOPROXY: https://proxy.golang.org
     steps:
       - name: Start Redis
         uses: supercharge/redis-github-action@1.4.0
@@ -33,12 +34,14 @@ jobs:
           postgresql db: testdb
           postgresql user: testuser
           postgresql password: testpw
-          postgresql version: '14'
+          postgresql version: "14"
 
       - uses: niden/actions-memcached@v7
 
       - name: Set up Go ${{ matrix.go }}
         uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go }}
 
       - name: Checkout Code
         uses: actions/checkout@v4
