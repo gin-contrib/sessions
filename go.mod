@@ -19,7 +19,7 @@ require (
 	github.com/wader/gormstore/v2 v2.0.3
 	go.mongodb.org/mongo-driver v1.12.1
 	gorm.io/driver/sqlite v1.4.4
-	gorm.io/gorm v1.25.4
+	gorm.io/gorm v1.25.5
 )
 
 require (
