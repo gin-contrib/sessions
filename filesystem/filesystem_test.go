@@ -1,13 +1,15 @@
 package filesystem
 
 import (
+	"os"
 	"testing"
 
+	sessions "github.com/geschke/gin-contrib-sessions"
 	"github.com/geschke/gin-contrib-sessions/filesystem"
 	"github.com/geschke/gin-contrib-sessions/tester"
 )
 
-const sessionPath = "/tmp/"
+var sessionPath = os.TempDir()
 
 var newStore = func(_ *testing.T) sessions.Store {
 	store := filesystem.NewStore(sessionPath, []byte("secret"))

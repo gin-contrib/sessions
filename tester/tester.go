@@ -4,12 +4,13 @@
 package tester
 
 import (
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 
-	"github.com/gin-contrib/sessions"
+	sessions "github.com/geschke/gin-contrib-sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,6 +25,7 @@ func init() {
 }
 
 func GetSet(t *testing.T, newStore storeFactory) {
+	log.Println("in GetSet")
 	r := gin.Default()
 	r.Use(sessions.Sessions(sessionName, newStore(t)))
 
@@ -49,6 +51,7 @@ func GetSet(t *testing.T, newStore storeFactory) {
 
 	res2 := httptest.NewRecorder()
 	req2, _ := http.NewRequest("GET", "/get", nil)
+	t.Logf(strings.Join(res1.Header().Values("Set-Cookie"), ";"))
 	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 }
@@ -183,6 +186,7 @@ func Clear(t *testing.T, newStore storeFactory) {
 }
 
 func Options(t *testing.T, newStore storeFactory) {
+	log.Println("in Options in tester")
 	r := gin.Default()
 	store := newStore(t)
 	store.Options(sessions.Options{
@@ -244,11 +248,17 @@ func Options(t *testing.T, newStore storeFactory) {
 
 	res4 := httptest.NewRecorder()
 	req4, _ := http.NewRequest("GET", "/expire", nil)
+	t.Logf("test expire")
+	t.Logf(strings.Join(res4.Header().Values("Set-Cookie"), ";"))
 	r.ServeHTTP(res4, req4)
 
 	res5 := httptest.NewRecorder()
 	req5, _ := http.NewRequest("GET", "/check", nil)
 	r.ServeHTTP(res5, req5)
+
+	t.Logf("vor path und domain")
+	t.Logf(strings.Join(res1.Header().Values("Set-Cookie"), ";"))
+	t.Logf(strings.Join(res2.Header().Values("Set-Cookie"), ";"))
 
 	for _, c := range res1.Header().Values("Set-Cookie") {
 		s := strings.Split(c, ";")

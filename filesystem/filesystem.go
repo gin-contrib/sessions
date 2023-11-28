@@ -1,7 +1,7 @@
 package filesystem
 
 import (
-	"github.com/geschke/gin-contrib-sessions"
+	sessions "github.com/geschke/gin-contrib-sessions"
 	gsessions "github.com/gorilla/sessions"
 )
 

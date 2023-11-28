@@ -3,16 +3,18 @@ package cookie
 import (
 	"testing"
 
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/tester"
+	sessions "github.com/geschke/gin-contrib-sessions"
+	"github.com/geschke/gin-contrib-sessions/cookie"
+	"github.com/geschke/gin-contrib-sessions/tester"
 )
 
 var newStore = func(_ *testing.T) sessions.Store {
-	store := NewStore([]byte("secret"))
+	store := cookie.NewStore([]byte("secret"))
 	return store
 }
 
 func TestCookie_SessionGetSet(t *testing.T) {
+	t.Logf("in GetSet")
 	tester.GetSet(t, newStore)
 }
 
@@ -29,6 +31,7 @@ func TestCookie_SessionClear(t *testing.T) {
 }
 
 func TestCookie_SessionOptions(t *testing.T) {
+	t.Logf("in TestCookieSessionOptions")
 	tester.Options(t, newStore)
 }
 
