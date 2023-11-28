@@ -4,9 +4,9 @@ import (
 	"os"
 	"testing"
 
-	sessions "github.com/geschke/gin-contrib-sessions"
-	"github.com/geschke/gin-contrib-sessions/filesystem"
-	"github.com/geschke/gin-contrib-sessions/tester"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/filesystem"
+	"github.com/gin-contrib/sessions/tester"
 )
 
 var sessionPath = os.TempDir()

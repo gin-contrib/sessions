@@ -4,13 +4,12 @@
 package tester
 
 import (
-	"log"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 
-	sessions "github.com/geschke/gin-contrib-sessions"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,10 +28,7 @@ func testOptionSameSitego(t *testing.T, r *gin.Engine) {
 	req3, _ := http.NewRequest("GET", "/sameSite", nil)
 	r.ServeHTTP(res3, req3)
 
-	log.Println("Here we are!")
 	s := strings.Split(res3.Header().Get("Set-Cookie"), ";")
-	log.Println(s)
-	log.Println(res3.Header().Get("Set-Cookie"))
 	if s[1] != " SameSite=Strict" {
 		t.Error("Error writing samesite with options:", s[1])
 	}
