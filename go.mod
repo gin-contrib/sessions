@@ -1,4 +1,4 @@
-module github.com/gin-contrib/sessions
+module github.com/weisskopfjens/sessions
 
 go 1.18
 
