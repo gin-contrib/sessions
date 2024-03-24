@@ -12,7 +12,7 @@ Gin middleware for session management with multi-backend support:
 - [Redis](#redis)
 - [memcached](#memcached)
 - [MongoDB](#mongodb)
-- [GoRM](#gorm)
+- [GORM](#gorm)
 - [memstore](#memstore)
 - [PostgreSQL](#postgresql)
 
@@ -372,7 +372,7 @@ func main() {
 }
 ```
 
-### GoRM
+### GORM
 
 ```go
 package main
