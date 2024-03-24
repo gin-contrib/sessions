@@ -2,9 +2,10 @@ package main
 
 import (
 	"database/sql"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/postgres"
+
 	"github.com/gin-gonic/gin"
+	"github.com/weisskopfjens/sessions"
+	"github.com/weisskopfjens/sessions/postgres"
 )
 
 func main() {

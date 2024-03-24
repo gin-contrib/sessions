@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/gin-contrib/sessions"
-	gormsessions "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
+	"github.com/weisskopfjens/sessions"
+	gormsessions "github.com/weisskopfjens/sessions/gorm"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )

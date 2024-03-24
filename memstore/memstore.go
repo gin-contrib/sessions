@@ -1,8 +1,8 @@
 package memstore
 
 import (
-	"github.com/gin-contrib/sessions"
 	"github.com/quasoft/memstore"
+	"github.com/weisskopfjens/sessions"
 )
 
 type Store interface {
