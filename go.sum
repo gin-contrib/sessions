@@ -185,8 +185,6 @@ github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9Nz
 github.com/shopspring/decimal v1.2.0/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
-github.com/srinathgs/mysqlstore v0.0.0-20231123182912-ffbca72c0a70 h1:ce2lVjMGLlE84IRaxy1DzmKcfvI4njKuQ8dC2APo32k=
-github.com/srinathgs/mysqlstore v0.0.0-20231123182912-ffbca72c0a70/go.mod h1:kt46Hd+lF0rtpeRgOvYSWYJItOAd73EKkIBZFbX7TXs=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.2.0/go.mod h1:qt09Ya8vawLte6SNmTgCsAVtYtaKzEcn8ATUoHMkEqE=
@@ -210,6 +208,8 @@ github.com/ugorji/go/codec v1.2.12 h1:9LC83zGrHhuUA9l16C9AHXAqEV/2wBQ4nkvumAE65E
 github.com/ugorji/go/codec v1.2.12/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
 github.com/wader/gormstore/v2 v2.0.3 h1:/29GWPauY8xZkpLnB8hsp+dZfP3ivA9fiDw1YVNTp6U=
 github.com/wader/gormstore/v2 v2.0.3/go.mod h1:sr3N3a8F1+PBc3fHoKaphFqDXLRJ9Oe6Yow0HxKFbbg=
+github.com/weisskopfjens/mysqlstore v0.0.0-20231123182912-ffbca72c0a70 h1:tbGFByXJxvWcVaacC7/MYBmjq1hHiPTV5sOyZveZ8Rg=
+github.com/weisskopfjens/mysqlstore v0.0.0-20231123182912-ffbca72c0a70/go.mod h1:/n6W/7x3SCW1V2iXh+ns0EROh/KwKjReppbXGQ37hIs=
 github.com/xdg-go/pbkdf2 v1.0.0 h1:Su7DPu48wXMwC3bs7MCNG+z4FhcyEuz5dlvchbq0B0c=
 github.com/xdg-go/pbkdf2 v1.0.0/go.mod h1:jrpuAogTd400dnrH08LKmI/xc1MbPOebTwRqcT5RDeI=
 github.com/xdg-go/scram v1.1.2 h1:FHX5I5B4i4hKRVRBCFRxq1iQRej7WO3hhBuJf+UUySY=

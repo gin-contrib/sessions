@@ -3,8 +3,8 @@ package gorm
 import (
 	"time"
 
-	"github.com/gin-contrib/sessions"
 	"github.com/wader/gormstore/v2"
+	"github.com/weisskopfjens/sessions"
 	"gorm.io/gorm"
 )
 

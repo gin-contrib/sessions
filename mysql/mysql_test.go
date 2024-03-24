@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/tester"
+	"github.com/weisskopfjens/sessions"
+	"github.com/weisskopfjens/sessions/tester"
 )
 
 const mysqlTestServer = "testuser:testpass@tcp(localhost:3306)/testdb?parseTime=true&loc=Local"

@@ -3,8 +3,8 @@ package mysql
 import (
 	"database/sql"
 
-	"github.com/gin-contrib/sessions"
-	"github.com/srinathgs/mysqlstore"
+	"github.com/weisskopfjens/mysqlstore"
+	"github.com/weisskopfjens/sessions"
 )
 
 type Store interface {

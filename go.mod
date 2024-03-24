@@ -16,8 +16,8 @@ require (
 	github.com/kidstuff/mongostore v0.0.0-20181113001930-e650cd85ee4b
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
-	github.com/srinathgs/mysqlstore v0.0.0-20231123182912-ffbca72c0a70
 	github.com/wader/gormstore/v2 v2.0.3
+	github.com/weisskopfjens/mysqlstore v0.0.0-20231123182912-ffbca72c0a70
 	go.mongodb.org/mongo-driver v1.14.0
 	gorm.io/driver/sqlite v1.4.4
 	gorm.io/gorm v1.25.8
