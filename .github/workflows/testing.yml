@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        go: [1.19, "1.20", 1.21]
+        go: [1.19, "1.20", 1.21, 1.22]
     name: ${{ matrix.os }} @ Go ${{ matrix.go }}
     runs-on: ${{ matrix.os }}
 
@@ -39,7 +39,7 @@ jobs:
       - uses: niden/actions-memcached@v7
 
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
 
@@ -53,4 +53,4 @@ jobs:
           go test -v -covermode=atomic -coverprofile=coverage.out ./...
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
