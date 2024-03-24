@@ -8,7 +8,7 @@ import (
 	"github.com/gin-contrib/sessions/tester"
 )
 
-const mysqlTestServer = "testuser:testpass@tcp(localhost:3306)/testdb"
+const mysqlTestServer = "testuser:testpass@tcp(localhost:3306)/testdb?parseTime=true&loc=Local"
 
 var newStore = func(_ *testing.T) sessions.Store {
 	db, err := sql.Open("mysql", mysqlTestServer)
