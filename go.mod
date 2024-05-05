@@ -1,6 +1,6 @@
 module github.com/gin-contrib/sessions
 
-go 1.18
+go 1.19
 
 require (
 	github.com/antonlindstrom/pgstore v0.0.0-20220421113606-e3a6e3fed12a
