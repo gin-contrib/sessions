@@ -1,4 +1,4 @@
-package postgres
+package mysql
 
 import (
 	"database/sql"
@@ -8,10 +8,10 @@ import (
 	"github.com/weisskopfjens/sessions/tester"
 )
 
-const postgresTestServer = "postgres://testuser:testpw@localhost:5432/testdb?sslmode=disable"
+const mysqlTestServer = "testuser:testpass@tcp(localhost:3306)/testdb?parseTime=true&loc=Local"
 
 var newStore = func(_ *testing.T) sessions.Store {
-	db, err := sql.Open("postgres", postgresTestServer)
+	db, err := sql.Open("mysql", mysqlTestServer)
 	if err != nil {
 		panic(err)
 	}
@@ -24,26 +24,26 @@ var newStore = func(_ *testing.T) sessions.Store {
 	return store
 }
 
-func TestPostgres_SessionGetSet(t *testing.T) {
+func TestMysql_SessionGetSet(t *testing.T) {
 	tester.GetSet(t, newStore)
 }
 
-func TestPostgres_SessionDeleteKey(t *testing.T) {
+func TestMysql_SessionDeleteKey(t *testing.T) {
 	tester.DeleteKey(t, newStore)
 }
 
-func TestPostgres_SessionFlashes(t *testing.T) {
+func TestMysql_SessionFlashes(t *testing.T) {
 	tester.Flashes(t, newStore)
 }
 
-func TestPostgres_SessionClear(t *testing.T) {
+func TestMysql_SessionClear(t *testing.T) {
 	tester.Clear(t, newStore)
 }
 
-func TestPostgres_SessionOptions(t *testing.T) {
+func TestMysql_SessionOptions(t *testing.T) {
 	tester.Options(t, newStore)
 }
 
-func TestPostgres_SessionMany(t *testing.T) {
+func TestMysql_SessionMany(t *testing.T) {
 	tester.Many(t, newStore)
 }

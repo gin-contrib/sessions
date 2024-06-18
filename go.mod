@@ -1,4 +1,4 @@
-module github.com/gin-contrib/sessions
+module github.com/weisskopfjens/sessions
 
 go 1.19
 
@@ -17,6 +17,7 @@ require (
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/wader/gormstore/v2 v2.0.3
+	github.com/weisskopfjens/mysqlstore v0.0.0-20231123182912-ffbca72c0a70
 	go.mongodb.org/mongo-driver v1.14.0
 	gorm.io/driver/sqlite v1.4.4
 	gorm.io/gorm v1.25.8
@@ -31,6 +32,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.19.0 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
