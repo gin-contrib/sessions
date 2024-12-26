@@ -1,23 +1,23 @@
 module github.com/gin-contrib/sessions
 
-go 1.20
+go 1.22
 
 require (
 	github.com/antonlindstrom/pgstore v0.0.0-20220421113606-e3a6e3fed12a
-	github.com/bos-hieu/mongostore v0.0.3
 	github.com/bradfitz/gomemcache v0.0.0-20230905024940-24af94b03874
 	github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
 	github.com/gomodule/redigo v1.9.2
 	github.com/gorilla/context v1.1.2
-	github.com/gorilla/sessions v1.2.2
+	github.com/gorilla/sessions v1.3.0
 	github.com/kidstuff/mongostore v0.0.0-20181113001930-e650cd85ee4b
+	github.com/laziness-coders/mongostore v0.0.14
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
 	github.com/snowdreamtech/redistore v0.0.0-20231007100540-6364ca2c97b4
 	github.com/wader/gormstore/v2 v2.0.3
-	go.mongodb.org/mongo-driver v1.14.0
+	go.mongodb.org/mongo-driver v1.16.0
 	gorm.io/driver/sqlite v1.4.4
 	gorm.io/gorm v1.25.8
 )
