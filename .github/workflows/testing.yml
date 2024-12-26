@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        go: [1.19, "1.20", 1.21, 1.22]
+        go: [1.19, "1.20", 1.21, 1.22, 1.23]
     name: ${{ matrix.os }} @ Go ${{ matrix.go }}
     runs-on: ${{ matrix.os }}
 
@@ -53,4 +53,4 @@ jobs:
           go test -v -covermode=atomic -coverprofile=coverage.out ./...
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
