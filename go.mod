@@ -4,6 +4,7 @@ go 1.22
 
 require (
 	github.com/antonlindstrom/pgstore v0.0.0-20220421113606-e3a6e3fed12a
+	github.com/boj/redistore v1.3.0
 	github.com/bradfitz/gomemcache v0.0.0-20230905024940-24af94b03874
 	github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1
 	github.com/gin-gonic/gin v1.10.0
@@ -15,7 +16,6 @@ require (
 	github.com/laziness-coders/mongostore v0.0.14
 	github.com/memcachier/mc v2.0.1+incompatible
 	github.com/quasoft/memstore v0.0.0-20191010062613-2bce066d2b0b
-	github.com/snowdreamtech/redistore v0.0.0-20231007100540-6364ca2c97b4
 	github.com/wader/gormstore/v2 v2.0.3
 	go.mongodb.org/mongo-driver v1.16.0
 	gorm.io/driver/sqlite v1.4.4

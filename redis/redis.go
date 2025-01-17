@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-contrib/sessions"
 
+	"github.com/boj/redistore"
 	"github.com/gomodule/redigo/redis"
-	"github.com/snowdreamtech/redistore"
 )
 
 type Store interface {
