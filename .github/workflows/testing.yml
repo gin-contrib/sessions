@@ -24,7 +24,7 @@ jobs:
           redis-version: 4
 
       - name: Start MongoDB 4.2
-        uses: supercharge/mongodb-github-action@1.11.0
+        uses: supercharge/mongodb-github-action@1.12.0
         with:
           mongodb-version: 4.2
 
