@@ -2,8 +2,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/Masterminds/semver/v3 v3.1.1/go.mod h1:VPu/7SZ7ePZ3QOrcuXROw5FAcLl4a0cBrbBpGY/8hQs=
 github.com/antonlindstrom/pgstore v0.0.0-20220421113606-e3a6e3fed12a h1:dIdcLbck6W67B5JFMewU5Dba1yKZA3MsT67i4No/zh0=
 github.com/antonlindstrom/pgstore v0.0.0-20220421113606-e3a6e3fed12a/go.mod h1:Sdr/tmSOLEnncCuXS5TwZRxuk7deH1WXVY8cve3eVBM=
-github.com/boj/redistore v1.3.0 h1:2Cz7NezUYeuTLKMxWxKluT3t2enyD/N0eB23Fd1jQk4=
-github.com/boj/redistore v1.3.0/go.mod h1:4Dnw2ZVwtwHFiWfJ7FoHVQ79IYAQakYYNICZmt9xIfI=
+github.com/boj/redistore v1.4.0 h1:PFn5Hcbmj22WGsMKGLaEn33In4+C0lX+txbAOpA3mPA=
+github.com/boj/redistore v1.4.0/go.mod h1:JeLqX+qEEBrjytalj9s+3a7o34lNmYncdPj8HeZRvYk=
 github.com/bradfitz/gomemcache v0.0.0-20230905024940-24af94b03874 h1:N7oVaKyGp8bttX0bfZGmcGkjz7DLQXhAn3DNd3T0ous=
 github.com/bradfitz/gomemcache v0.0.0-20230905024940-24af94b03874/go.mod h1:r5xuitiExdLAJ09PR7vBVENGvp4ZuTBeWTGtxuX3K+c=
 github.com/bradleypeabody/gorilla-sessions-memcache v0.0.0-20181103040241-659414f458e1 h1:4QHxgr7hM4gVD8uOwrk8T1fjkKRLwaLjmTkU0ibhZKU=
