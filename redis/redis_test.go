@@ -10,7 +10,7 @@ import (
 const redisTestServer = "localhost:6379"
 
 var newRedisStore = func(_ *testing.T) sessions.Store {
-	store, err := NewStore(10, "tcp", redisTestServer, "", []byte("secret"))
+	store, err := NewStore(10, "tcp", redisTestServer, "", "", []byte("secret"))
 	if err != nil {
 		panic(err)
 	}
