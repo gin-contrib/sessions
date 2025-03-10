@@ -28,4 +28,5 @@ type store struct {
 
 func (c *store) Options(options sessions.Options) {
 	c.CookieStore.Options = options.ToGorillaOptions()
+	c.CookieStore.MaxAge(options.MaxAge)
 }
