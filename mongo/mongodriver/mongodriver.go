@@ -1,16 +1,15 @@
-package mongo
+package mongodriver
 
 import (
 	"github.com/gin-contrib/sessions"
-	"github.com/globalsign/mgo"
-	"github.com/kidstuff/mongostore"
+
+	"github.com/laziness-coders/mongostore"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type Store interface {
-	sessions.Store
-}
+var _ sessions.Store = (*store)(nil)
 
-func NewStore(c *mgo.Collection, maxAge int, ensureTTL bool, keyPairs ...[]byte) Store {
+func NewStore(c *mongo.Collection, maxAge int, ensureTTL bool, keyPairs ...[]byte) sessions.Store {
 	return &store{mongostore.NewMongoStore(c, maxAge, ensureTTL, keyPairs...)}
 }
 
