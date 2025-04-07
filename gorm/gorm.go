@@ -26,5 +26,5 @@ type store struct {
 }
 
 func (s *store) Options(options sessions.Options) {
-	s.Store.SessionOpts = options.ToGorillaOptions()
+	s.SessionOpts = options.ToGorillaOptions()
 }

@@ -88,15 +88,15 @@ type store struct {
 // Returns:
 //   - err: An error if the provided Store is not of the expected type.
 //   - rediStore: The retrieved Redis store, or nil if there was an error.
-func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
+func GetRedisStore(s Store) (rediStore *redistore.RediStore, err error) {
 	realStore, ok := s.(*store)
 	if !ok {
 		err = errors.New("unable to get the redis store: Store isn't *store")
-		return
+		return nil, err
 	}
 
 	rediStore = realStore.RediStore
-	return
+	return rediStore, nil
 }
 
 // SetKeyPrefix sets a key prefix for the given Redis store.
@@ -110,7 +110,7 @@ func GetRedisStore(s Store) (err error, rediStore *redistore.RediStore) {
 // Returns:
 //   - error: An error if there is an issue retrieving the Redis store, otherwise nil.
 func SetKeyPrefix(s Store, prefix string) error {
-	err, rediStore := GetRedisStore(s)
+	rediStore, err := GetRedisStore(s)
 	if err != nil {
 		return err
 	}
