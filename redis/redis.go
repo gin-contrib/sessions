@@ -47,8 +47,8 @@ func NewStore(size int, network, address, username, password string, keyPairs ..
 // Returns:
 // - Store: The created session store.
 // - error: An error if the store could not be created.
-func NewStoreWithDB(size int, network, address, username, password, DB string, keyPairs ...[]byte) (Store, error) {
-	s, err := redistore.NewRediStoreWithDB(size, network, address, username, password, DB, keyPairs...)
+func NewStoreWithDB(size int, network, address, username, password, db string, keyPairs ...[]byte) (Store, error) {
+	s, err := redistore.NewRediStoreWithDB(size, network, address, username, password, db, keyPairs...)
 	if err != nil {
 		return nil, err
 	}
