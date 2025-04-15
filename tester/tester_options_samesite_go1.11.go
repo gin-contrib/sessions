@@ -4,6 +4,7 @@
 package tester
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -25,7 +26,7 @@ func testOptionSameSitego(t *testing.T, r *gin.Engine) {
 	})
 
 	res3 := httptest.NewRecorder()
-	req3, _ := http.NewRequest("GET", "/sameSite", nil)
+	req3, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/sameSite", nil)
 	r.ServeHTTP(res3, req3)
 
 	s := strings.Split(res3.Header().Get("Set-Cookie"), ";")

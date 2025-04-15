@@ -48,7 +48,7 @@ func TestRedis_SessionManyStores(t *testing.T) {
 func TestGetRedisStore(t *testing.T) {
 	t.Run("unmatched type", func(t *testing.T) {
 		type store struct{ Store }
-		err, rediStore := GetRedisStore(store{})
+		rediStore, err := GetRedisStore(store{})
 		if err == nil || rediStore != nil {
 			t.Fail()
 		}
