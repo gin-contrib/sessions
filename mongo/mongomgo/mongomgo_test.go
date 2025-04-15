@@ -43,3 +43,7 @@ func TestMongoMGO_SessionOptions(t *testing.T) {
 func TestMongoMGO_SessionMany(t *testing.T) {
 	tester.Many(t, newStore)
 }
+
+func TestMongo_SessionManyStores(t *testing.T) {
+	tester.ManyStores(t, newStore)
+}
