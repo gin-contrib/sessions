@@ -308,6 +308,7 @@ func Many(t *testing.T, newStore storeFactory) {
 	req2.Header.Set("Cookie", header)
 	r.ServeHTTP(res2, req2)
 }
+
 func ManyStores(t *testing.T, newStore storeFactory) {
 	r := gin.Default()
 
@@ -346,11 +347,11 @@ func ManyStores(t *testing.T, newStore storeFactory) {
 	})
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequest("GET", "/set", nil)
+	req1, _ := http.NewRequestWithContext(context.Background(), "GET", "/set", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequest("GET", "/get", nil)
+	req2, _ := http.NewRequestWithContext(context.Background(), "GET", "/get", nil)
 	header := ""
 	for _, x := range res1.Header()["Set-Cookie"] {
 		header += strings.Split(x, ";")[0] + "; \n"
