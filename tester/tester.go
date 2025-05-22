@@ -249,16 +249,23 @@ func Options(t *testing.T, newStore storeFactory) {
 	r.ServeHTTP(res5, req5)
 
 	for _, c := range res1.Header().Values("Set-Cookie") {
-		s := strings.Split(c, ";")
-		if s[1] != " Path=/foo/bar/bat" {
-			t.Error("Error writing path with options:", s[1])
+		s := strings.Split(c, "; ")
+		if len(s) < 2 {
+			t.Fatal("No Path=/foo/bar/batt found in options")
+		}
+		if s[1] != "Path=/foo/bar/bat" {
+			t.Fatal("Error writing path with options:", s[1])
 		}
 	}
 
 	for _, c := range res2.Header().Values("Set-Cookie") {
-		s := strings.Split(c, ";")
-		if s[1] != " Domain=localhost" {
-			t.Error("Error writing domain with options:", s[1])
+		s := strings.Split(c, "; ")
+		if len(s) < 2 {
+			t.Fatal("No Domain=localhost found in options")
+		}
+
+		if s[1] != "Domain=localhost" {
+			t.Fatal("Error writing domain with options:", s[1])
 		}
 	}
 }
