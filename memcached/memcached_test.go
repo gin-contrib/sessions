@@ -75,6 +75,6 @@ func TestBinaryMemcached_SessionMany(t *testing.T) {
 	tester.Many(t, newBinaryStore)
 }
 
-func TestBinaryMemcached_SessionManyStpres(t *testing.T) {
+func TestBinaryMemcached_SessionManyStores(t *testing.T) {
 	tester.ManyStores(t, newBinaryStore)
 }
