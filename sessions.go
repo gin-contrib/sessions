@@ -152,7 +152,6 @@ func (s *session) Session() *sessions.Session {
 			slog.Error(errorFormat,
 				"err", err,
 			)
-			return nil
 		}
 	}
 	return s.session
