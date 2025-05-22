@@ -5,14 +5,13 @@ import (
 	"testing"
 
 	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/filesystem"
 	"github.com/gin-contrib/sessions/tester"
 )
 
 var sessionPath = os.TempDir()
 
 var newStore = func(_ *testing.T) sessions.Store {
-	store := filesystem.NewStore(sessionPath, []byte("secret"))
+	store := NewStore(sessionPath, []byte("secret"))
 	return store
 }
 
