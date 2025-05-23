@@ -46,6 +46,12 @@ type Session interface {
 	Save() error
 }
 
+// SessionStore named session stores allow multiple sessions with different store types
+type SessionStore struct {
+	Name  string
+	Store Store
+}
+
 func Sessions(name string, store Store) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		s := &session{name, c.Request, store, nil, false, c.Writer}
@@ -60,6 +66,18 @@ func SessionsMany(names []string, store Store) gin.HandlerFunc {
 		sessions := make(map[string]Session, len(names))
 		for _, name := range names {
 			sessions[name] = &session{name, c.Request, store, nil, false, c.Writer}
+		}
+		c.Set(DefaultKey, sessions)
+		defer context.Clear(c.Request)
+		c.Next()
+	}
+}
+
+func SessionsManyStores(sessionStores []SessionStore) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		sessions := make(map[string]Session, len(sessionStores))
+		for _, sessionStore := range sessionStores {
+			sessions[sessionStore.Name] = &session{sessionStore.Name, c.Request, sessionStore.Store, nil, false, c.Writer}
 		}
 		c.Set(DefaultKey, sessions)
 		defer context.Clear(c.Request)
