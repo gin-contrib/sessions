@@ -2,6 +2,7 @@
 
 [![Run CI Lint](https://github.com/gin-contrib/sessions/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/gin-contrib/sessions/actions/workflows/lint.yml)
 [![Run Testing](https://github.com/gin-contrib/sessions/actions/workflows/testing.yml/badge.svg?branch=master)](https://github.com/gin-contrib/sessions/actions/workflows/testing.yml)
+[![Trivy Security Scan](https://github.com/gin-contrib/sessions/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/gin-contrib/sessions/actions/workflows/trivy-scan.yml)
 [![codecov](https://codecov.io/gh/gin-contrib/sessions/branch/master/graph/badge.svg)](https://codecov.io/gh/gin-contrib/sessions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/gin-contrib/sessions)](https://goreportcard.com/report/github.com/gin-contrib/sessions)
 [![GoDoc](https://godoc.org/github.com/gin-contrib/sessions?status.svg)](https://godoc.org/github.com/gin-contrib/sessions)
