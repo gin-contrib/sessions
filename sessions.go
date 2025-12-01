@@ -44,6 +44,8 @@ type Session interface {
 	Options(Options)
 	// Save saves all sessions used during the current request.
 	Save() error
+        // Get session
+	Session() *sessions.Session
 }
 
 // SessionStore named session stores allow multiple sessions with different store types
