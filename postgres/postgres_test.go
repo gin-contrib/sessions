@@ -8,7 +8,8 @@ import (
 	"github.com/gin-contrib/sessions/tester"
 )
 
-const postgresTestServer = "postgres://testuser:testpw@localhost:5432/testdb?sslmode=disable" //nolint:gosec // test-only credentials for local CI
+// test-only credentials for local CI
+const postgresTestServer = "postgres://testuser:testpw@localhost:5432/testdb?sslmode=disable" //nolint:gosec
 
 var newStore = func(_ *testing.T) sessions.Store {
 	db, err := sql.Open("postgres", postgresTestServer)
