@@ -19,6 +19,7 @@ type storeFactory func(*testing.T) sessions.Store
 const (
 	sessionName = "mysession"
 	ok          = "ok"
+	testBarVal  = "bar"
 )
 
 func GetSet(t *testing.T, newStore storeFactory) {
@@ -143,7 +144,7 @@ func Flashes(t *testing.T, newStore storeFactory) {
 func Clear(t *testing.T, newStore storeFactory) {
 	data := map[string]string{
 		"key": "val",
-		"foo": "bar",
+		"foo": testBarVal,
 	}
 	r := gin.Default()
 	store := newStore(t)
@@ -282,7 +283,7 @@ func Many(t *testing.T, newStore storeFactory) {
 		_ = sessionA.Save()
 
 		sessionB := sessions.DefaultMany(c, "b")
-		sessionB.Set("foo", "bar")
+		sessionB.Set("foo", testBarVal)
 		_ = sessionB.Save()
 		c.String(http.StatusOK, ok)
 	})
@@ -295,7 +296,7 @@ func Many(t *testing.T, newStore storeFactory) {
 		_ = sessionA.Save()
 
 		sessionB := sessions.DefaultMany(c, "b")
-		if sessionB.Get("foo") != "bar" {
+		if sessionB.Get("foo") != testBarVal {
 			t.Error("Session writing failed")
 		}
 		_ = sessionB.Save()
@@ -333,7 +334,7 @@ func ManyStores(t *testing.T, newStore storeFactory) {
 		_ = sessionA.Save()
 
 		sessionB := sessions.DefaultMany(c, "b")
-		sessionB.Set("foo", "bar")
+		sessionB.Set("foo", testBarVal)
 		_ = sessionB.Save()
 		c.String(http.StatusOK, ok)
 	})
@@ -346,7 +347,7 @@ func ManyStores(t *testing.T, newStore storeFactory) {
 		_ = sessionA.Save()
 
 		sessionB := sessions.DefaultMany(c, "b")
-		if sessionB.Get("foo") != "bar" {
+		if sessionB.Get("foo") != testBarVal {
 			t.Error("Session writing failed")
 		}
 		_ = sessionB.Save()
