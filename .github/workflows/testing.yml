@@ -71,3 +71,4 @@ jobs:
           output: "trivy-results.sarif"
           exit-code: "1"
           severity: "CRITICAL,HIGH"
+          limit-severities-for-sarif: true
