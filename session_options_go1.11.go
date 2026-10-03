@@ -18,7 +18,7 @@ type Options struct {
 	// MaxAge>0 means Max-Age attribute present and given in seconds.
 	MaxAge   int
 	Secure   bool
-	HttpOnly bool
+	HttpOnly bool //nolint:staticcheck // ST1003: public API field name kept for backward compatibility
 	// rfc-draft to preventing CSRF: https://tools.ietf.org/html/draft-west-first-party-cookies-07
 	//   refer: https://godoc.org/net/http
 	//          https://www.sjoerdlangkemper.nl/2016/04/14/preventing-csrf-with-samesite-cookie-attribute/

@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/tester"
+
 	"github.com/globalsign/mgo"
 )
 
