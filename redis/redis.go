@@ -26,7 +26,11 @@ type Store interface {
 //
 // It is recommended to use an authentication key with 32 or 64 bytes. The encryption key,
 // if set, must be either 16, 24, or 32 bytes to select AES-128, AES-192, or AES-256 modes.
-func NewStore(size int, network, address, username, password string, keyPairs ...[]byte) (Store, error) {
+func NewStore(
+	size int,
+	network, address, username, password string,
+	keyPairs ...[]byte,
+) (Store, error) {
 	s, err := redistore.NewRediStore(size, network, address, username, password, keyPairs...)
 	if err != nil {
 		return nil, err
@@ -47,8 +51,20 @@ func NewStore(size int, network, address, username, password string, keyPairs ..
 // Returns:
 // - Store: The created session store.
 // - error: An error if the store could not be created.
-func NewStoreWithDB(size int, network, address, username, password, db string, keyPairs ...[]byte) (Store, error) {
-	s, err := redistore.NewRediStoreWithDB(size, network, address, username, password, db, keyPairs...)
+func NewStoreWithDB(
+	size int,
+	network, address, username, password, db string,
+	keyPairs ...[]byte,
+) (Store, error) {
+	s, err := redistore.NewRediStoreWithDB(
+		size,
+		network,
+		address,
+		username,
+		password,
+		db,
+		keyPairs...,
+	)
 	if err != nil {
 		return nil, err
 	}

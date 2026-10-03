@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/gin-contrib/sessions"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -309,11 +310,11 @@ func Many(t *testing.T, newStore storeFactory) {
 
 	res2 := httptest.NewRecorder()
 	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/get", nil)
-	header := ""
+	var header strings.Builder
 	for _, x := range res1.Header()["Set-Cookie"] {
-		header += strings.Split(x, ";")[0] + "; \n"
+		header.WriteString(strings.Split(x, ";")[0] + "; \n")
 	}
-	req2.Header.Set("Cookie", header)
+	req2.Header.Set("Cookie", header.String())
 	r.ServeHTTP(res2, req2)
 }
 
@@ -355,16 +356,16 @@ func ManyStores(t *testing.T, newStore storeFactory) {
 	})
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequestWithContext(context.Background(), "GET", "/set", nil)
+	req1, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/set", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequestWithContext(context.Background(), "GET", "/get", nil)
-	header := ""
+	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/get", nil)
+	var header strings.Builder
 	for _, x := range res1.Header()["Set-Cookie"] {
-		header += strings.Split(x, ";")[0] + "; \n"
+		header.WriteString(strings.Split(x, ";")[0] + "; \n")
 	}
-	req2.Header.Set("Cookie", header)
+	req2.Header.Set("Cookie", header.String())
 	r.ServeHTTP(res2, req2)
 }
 

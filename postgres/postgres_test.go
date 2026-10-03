@@ -9,7 +9,7 @@ import (
 )
 
 // test-only credentials for local CI
-const postgresTestServer = "postgres://testuser:testpw@localhost:5432/testdb?sslmode=disable" //nolint:gosec
+const postgresTestServer = "postgres://testuser:testpw@localhost:5432/testdb?sslmode=disable" //nolint:gosec // test-only credentials for local CI
 
 var newStore = func(_ *testing.T) sessions.Store {
 	db, err := sql.Open("postgres", postgresTestServer)
