@@ -16,6 +16,7 @@ Gin middleware for session management with multi-backend support:
 - [memstore](#memstore)
 - [PostgreSQL](#postgresql)
 - [Filesystem](#Filesystem)
+- [Cassandra](#cassandra)
 
 ## Usage
 
@@ -544,3 +545,76 @@ func main() {
   r.Run(":8000")
 }
 ```
+
+### Cassandra
+
+Cassandra is a server-side store: session data lives in a Cassandra table keyed
+by a unique session ID, and only the signed ID is stored in the cookie. Create
+the keyspace and table before running:
+
+```cql
+CREATE KEYSPACE IF NOT EXISTS sessions
+  WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+
+CREATE TABLE IF NOT EXISTS sessions.sessions (
+  session_id text PRIMARY KEY,
+  data       blob,
+  expires_at timestamp
+);
+```
+
+`NewStore` takes the cluster config, the session lifetime in seconds, and one or
+more key pairs (authentication key, optional encryption key). The encryption key,
+if provided, must be 16, 24, or 32 bytes (AES-128/192/256).
+
+```go
+package main
+
+import (
+  "github.com/gin-contrib/sessions"
+  "github.com/gin-contrib/sessions/cassandra"
+  "github.com/gin-gonic/gin"
+  "github.com/gocql/gocql"
+)
+
+func main() {
+  cluster := gocql.NewCluster("127.0.0.1")
+  cluster.Keyspace = "sessions"
+  cluster.Consistency = gocql.Quorum
+
+  store, err := cassandra.NewStore(
+    cluster,
+    3600,
+    []byte("authentication-key"),
+    []byte("0123456789abcdef"),
+  )
+  if err != nil {
+    panic(err)
+  }
+  defer store.Close()
+
+  r := gin.Default()
+  r.Use(sessions.Sessions("mysession", store))
+
+  r.GET("/incr", func(c *gin.Context) {
+    session := sessions.Default(c)
+    var count int
+    v := session.Get("count")
+    if v == nil {
+      count = 0
+    } else {
+      count = v.(int)
+      count++
+    }
+    session.Set("count", count)
+    session.Save()
+    c.JSON(200, gin.H{"count": count})
+  })
+  r.Run(":8000")
+}
+```
+
+Use `NewStoreWithOptions` to pass custom cookie options, and `store.Table("name")`
+to change the table name from the default `sessions`.
+
+A runnable login/logout example lives in [`_example/cassandra`](_example/cassandra).
