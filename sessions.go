@@ -133,8 +133,11 @@ func (s *session) AddFlash(value any, vars ...string) {
 }
 
 func (s *session) Flashes(vars ...string) []any {
-	s.written = true
-	return s.Session().Flashes(vars...)
+	flashes := s.Session().Flashes(vars...)
+	if len(flashes) > 0 {
+		s.written = true
+	}
+	return flashes
 }
 
 func (s *session) Options(options Options) {
