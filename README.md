@@ -1,7 +1,6 @@
 # sessions
 
-[![Run CI Lint](https://github.com/gin-contrib/sessions/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/gin-contrib/sessions/actions/workflows/lint.yml)
-[![Run Testing](https://github.com/gin-contrib/sessions/actions/workflows/testing.yml/badge.svg?branch=master)](https://github.com/gin-contrib/sessions/actions/workflows/testing.yml)
+[![Lint and Testing](https://github.com/gin-contrib/sessions/actions/workflows/testing.yml/badge.svg?branch=master)](https://github.com/gin-contrib/sessions/actions/workflows/testing.yml)
 [![Trivy Security Scan](https://github.com/gin-contrib/sessions/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/gin-contrib/sessions/actions/workflows/trivy-scan.yml)
 [![codecov](https://codecov.io/gh/gin-contrib/sessions/branch/master/graph/badge.svg)](https://codecov.io/gh/gin-contrib/sessions)
 [![Go Reference](https://pkg.go.dev/badge/github.com/gin-contrib/sessions.svg)](https://pkg.go.dev/github.com/gin-contrib/sessions)
