@@ -4,7 +4,6 @@
 package tester
 
 import (
-	"context"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -44,11 +43,11 @@ func GetSet(t *testing.T, newStore storeFactory) {
 	})
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/set", nil)
+	req1, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/set", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/get", nil)
+	req2, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/get", nil)
 	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 }
@@ -81,16 +80,16 @@ func DeleteKey(t *testing.T, newStore storeFactory) {
 	})
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/set", nil)
+	req1, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/set", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/delete", nil)
+	req2, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/delete", nil)
 	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 
 	res3 := httptest.NewRecorder()
-	req3, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/get", nil)
+	req3, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/get", nil)
 	copyCookies(req3, res2)
 	r.ServeHTTP(res3, req3)
 }
@@ -128,16 +127,16 @@ func Flashes(t *testing.T, newStore storeFactory) {
 	})
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/set", nil)
+	req1, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/set", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/flash", nil)
+	req2, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/flash", nil)
 	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 
 	res3 := httptest.NewRecorder()
-	req3, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/check", nil)
+	req3, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/check", nil)
 	copyCookies(req3, res2)
 	r.ServeHTTP(res3, req3)
 }
@@ -173,11 +172,11 @@ func Clear(t *testing.T, newStore storeFactory) {
 	})
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/set", nil)
+	req1, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/set", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/check", nil)
+	req2, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/check", nil)
 	copyCookies(req2, res1)
 	r.ServeHTTP(res2, req2)
 }
@@ -231,23 +230,23 @@ func Options(t *testing.T, newStore storeFactory) {
 	testOptionSameSitego(t, r)
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/domain", nil)
+	req1, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/domain", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/path", nil)
+	req2, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/path", nil)
 	r.ServeHTTP(res2, req2)
 
 	res3 := httptest.NewRecorder()
-	req3, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/set", nil)
+	req3, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/set", nil)
 	r.ServeHTTP(res3, req3)
 
 	res4 := httptest.NewRecorder()
-	req4, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/expire", nil)
+	req4, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/expire", nil)
 	r.ServeHTTP(res4, req4)
 
 	res5 := httptest.NewRecorder()
-	req5, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/check", nil)
+	req5, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/check", nil)
 	r.ServeHTTP(res5, req5)
 
 	for _, c := range res1.Header().Values("Set-Cookie") {
@@ -305,11 +304,11 @@ func Many(t *testing.T, newStore storeFactory) {
 	})
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/set", nil)
+	req1, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/set", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/get", nil)
+	req2, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/get", nil)
 	var header strings.Builder
 	for _, x := range res1.Header()["Set-Cookie"] {
 		header.WriteString(strings.Split(x, ";")[0] + "; \n")
@@ -356,11 +355,11 @@ func ManyStores(t *testing.T, newStore storeFactory) {
 	})
 
 	res1 := httptest.NewRecorder()
-	req1, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/set", nil)
+	req1, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/set", nil)
 	r.ServeHTTP(res1, req1)
 
 	res2 := httptest.NewRecorder()
-	req2, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/get", nil)
+	req2, _ := http.NewRequestWithContext(t.Context(), http.MethodGet, "/get", nil)
 	var header strings.Builder
 	for _, x := range res1.Header()["Set-Cookie"] {
 		header.WriteString(strings.Split(x, ";")[0] + "; \n")
