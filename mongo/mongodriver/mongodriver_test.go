@@ -14,8 +14,8 @@ import (
 
 const mongoTestServer = "mongodb://localhost:27017"
 
-var newStore = func(_ *testing.T) sessions.Store {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+var newStore = func(t *testing.T) sessions.Store {
+	ctx, cancel := context.WithTimeout(t.Context(), 10*time.Second)
 	defer cancel()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoTestServer))
 	if err != nil {
